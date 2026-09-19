@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+  --color-muted: #4a4a4a;
+  --color-line: #e6e6e6;
+  --color-cyan: #00a8e8;
+}
+
+html,
+body {
+  background: #ffffff;
+  color: #111111;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #00a8e8;
+  color: #ffffff;
+}
