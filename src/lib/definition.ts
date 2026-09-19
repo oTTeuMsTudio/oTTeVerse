@@ -3,6 +3,18 @@ export type DefinitionTable = {
   rows: string[][];
 };
 
+export type ArticleStep = {
+  title: string;
+  bullets?: string[];
+};
+
+export type ArticleBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "bullets"; items: string[] }
+  | { type: "code"; text: string }
+  | { type: "table"; table: DefinitionTable }
+  | { type: "steps"; items: ArticleStep[] };
+
 export type DefinitionSection = {
   id: string;
   title: string;
@@ -11,6 +23,7 @@ export type DefinitionSection = {
   body?: string;
   table?: DefinitionTable;
   crates?: { name: string; role?: string }[];
+  blocks?: ArticleBlock[];
 };
 
 export type ArchitectureLayer = {
@@ -28,7 +41,10 @@ export const lead = [
 ];
 
 export function stripMarkup(text: string): string {
-  return text.replace(/\*\*/g, "").replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1$2");
+  return text
+    .replace(/\*\*/g, "")
+    .replace(/`/g, "")
+    .replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1$2");
 }
 
 export const sections: DefinitionSection[] = [

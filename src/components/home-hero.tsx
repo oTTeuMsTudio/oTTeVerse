@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { featuredPost } from "@/lib/posts";
+import { featuredPost, parallelPost } from "@/lib/posts";
 
 export function HomeHero() {
   return (
@@ -19,12 +19,18 @@ export function HomeHero() {
           priority
         />
       </figure>
-      <div className="mt-6">
+      <div className="mt-6 flex flex-col items-stretch gap-3 sm:items-start">
         <Link
           href={featuredPost.href}
           className="block w-full rounded-md bg-foreground px-5 py-3 text-center text-sm font-semibold text-white hover:bg-cyan sm:inline-block sm:w-auto"
         >
           {featuredPost.title}
+        </Link>
+        <Link
+          href={parallelPost.href}
+          className="block w-full rounded-md bg-foreground px-5 py-3 text-center text-sm font-semibold text-white hover:bg-cyan sm:inline-block sm:w-auto"
+        >
+          {parallelPost.title}
         </Link>
       </div>
     </section>
