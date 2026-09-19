@@ -10,8 +10,13 @@ import {
   sections as parallelSections,
 } from "@/lib/parallel-execution";
 import {
+  lead as mvccLead,
+  sections as mvccSections,
+} from "@/lib/mvcc-implementation";
+import {
   featuredPost,
   getPost,
+  mvccPost,
   parallelPost,
   posts,
 } from "@/lib/posts";
@@ -19,6 +24,7 @@ import {
 const content = {
   [featuredPost.slug]: { lead: definitionLead, sections: definitionSections },
   [parallelPost.slug]: { lead: parallelLead, sections: parallelSections },
+  [mvccPost.slug]: { lead: mvccLead, sections: mvccSections },
 };
 
 export function generateStaticParams() {

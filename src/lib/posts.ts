@@ -28,7 +28,17 @@ export const parallelPost: Post = {
     "How a Rust game chain runs thousands of inventory transactions in parallel using Sealevel, object ownership, and Block-STM.",
 };
 
-export const posts: Post[] = [featuredPost, parallelPost];
+export const mvccPost: Post = {
+  slug: "implementing-mvcc-in-rust-for-parallel-game-blockchain-execution",
+  href: "/blog/implementing-mvcc-in-rust-for-parallel-game-blockchain-execution",
+  title: "Implementing MVCC in Rust for Parallel Game Blockchain Execution",
+  date: "2026-09-19",
+  dateLabel: "19 September 2026",
+  description:
+    "How a Rust game-chain block executor versions state by transaction index with Block-STM MVCC so workers execute in parallel without blocking.",
+};
+
+export const posts: Post[] = [featuredPost, parallelPost, mvccPost];
 
 export function getPost(slug: string): Post | undefined {
   return posts.find((post) => post.slug === slug);
