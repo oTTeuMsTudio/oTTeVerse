@@ -11,11 +11,11 @@ export function SiteHeader() {
           aria-label="oTTeVerse home"
         >
           <Image
-            src="/mark.png"
+            src="/logotip.jpg"
             alt=""
             width={40}
             height={40}
-            className="size-10 object-contain"
+            className="size-10 rounded-md object-cover"
             priority
           />
           <span className="truncate text-[15px] font-semibold tracking-tight">

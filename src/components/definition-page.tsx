@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArchitectureStack } from "@/components/architecture-stack";
 import {
   documentKicker,
@@ -15,6 +16,17 @@ export function DefinitionPage() {
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
         {documentTitle}
       </h1>
+      <figure className="mt-6">
+        <Image
+          src="/banner.jpg"
+          alt="oTTeuM sTudio — Build Your Virtual World in the Metaverse"
+          width={1500}
+          height={500}
+          className="h-auto w-full rounded-md object-cover"
+          sizes="(min-width: 768px) 768px, 100vw"
+          priority
+        />
+      </figure>
       <div className="mt-6 space-y-4 text-base leading-7 text-foreground">
         {lead.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>

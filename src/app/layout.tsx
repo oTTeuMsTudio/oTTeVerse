@@ -30,11 +30,20 @@ export const metadata: Metadata = {
     title,
     description,
     locale: "en_US",
+    images: [
+      {
+        url: "/banner.jpg",
+        width: 1500,
+        height: 500,
+        alt: "oTTeuM sTudio — Build Your Virtual World in the Metaverse",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title,
     description,
+    images: ["/banner.jpg"],
   },
 };
 
