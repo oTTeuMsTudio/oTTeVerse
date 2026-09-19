@@ -22,13 +22,13 @@ export function HomeHero() {
       <div className="mt-6 flex flex-col items-stretch gap-3 sm:items-start">
         <Link
           href={featuredPost.href}
-          className="block w-full rounded-md bg-foreground px-5 py-3 text-center text-sm font-semibold text-white hover:bg-cyan sm:inline-block sm:w-auto"
+          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
         >
           {featuredPost.title}
         </Link>
         <Link
           href={parallelPost.href}
-          className="block w-full rounded-md bg-foreground px-5 py-3 text-center text-sm font-semibold text-white hover:bg-cyan sm:inline-block sm:w-auto"
+          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
         >
           {parallelPost.title}
         </Link>
