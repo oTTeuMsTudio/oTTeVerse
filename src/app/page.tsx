@@ -1,10 +1,18 @@
 import { HomeHero } from "@/components/home-hero";
-import { description, title } from "@/config";
+import { description } from "@/config";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title,
+  title: "Welcome to oTTeVerse",
   description,
+  openGraph: {
+    title: "Welcome to oTTeVerse",
+    description,
+  },
+  twitter: {
+    title: "Welcome to oTTeVerse",
+    description,
+  },
 };
 
 export default function Page() {

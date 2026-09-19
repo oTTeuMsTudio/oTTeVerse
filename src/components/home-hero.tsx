@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { title } from "@/config";
 import { featuredPost } from "@/lib/posts";
 
 export function HomeHero() {
   return (
     <section className="mx-auto w-full max-w-3xl px-5 py-10 pb-20">
       <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-        {title}
+        Welcome to oTTeVerse
       </h1>
       <figure className="mt-6">
         <Image
