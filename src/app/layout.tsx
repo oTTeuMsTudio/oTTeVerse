@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/banner.jpg",
-        width: 1500,
-        height: 500,
-        alt: "oTTeuM sTudio — Build Your Virtual World in the Metaverse",
+        width: 1760,
+        height: 576,
+        alt: "oTTeVerse — Build Your Virtual World in the Metaverse",
       },
     ],
   },

@@ -19,9 +19,9 @@ export function DefinitionPage() {
       <figure className="mt-6">
         <Image
           src="/banner.jpg"
-          alt="oTTeuM sTudio — Build Your Virtual World in the Metaverse"
-          width={1500}
-          height={500}
+          alt="oTTeVerse — Build Your Virtual World in the Metaverse"
+          width={1760}
+          height={576}
           className="h-auto w-full rounded-md object-cover"
           sizes="(min-width: 768px) 768px, 100vw"
           priority
