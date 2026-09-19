@@ -1,4 +1,4 @@
-import { DefinitionPage } from "@/components/definition-page";
+import { HomeHero } from "@/components/home-hero";
 import { description, title } from "@/config";
 import type { Metadata } from "next";
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main id="main">
-      <DefinitionPage />
+      <HomeHero />
     </main>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b-2 border-cyan bg-white">
-      <div className="mx-auto flex h-16 max-w-3xl items-center justify-between gap-4 px-5">
+      <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between gap-4 px-5">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-2.5 text-foreground"
@@ -22,12 +22,14 @@ export function SiteHeader() {
             oTTeVerse
           </span>
         </Link>
-        <a
-          href="/otteverse-definition.pdf"
-          className="shrink-0 text-sm font-medium text-muted underline-offset-4 hover:text-foreground hover:underline"
-        >
-          Download PDF
-        </a>
+        <nav aria-label="Primary">
+          <Link
+            href="/blog"
+            className="shrink-0 text-sm font-medium text-muted underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Blog
+          </Link>
+        </nav>
       </div>
     </header>
   );

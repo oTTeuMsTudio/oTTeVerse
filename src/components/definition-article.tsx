@@ -1,32 +1,19 @@
-import Image from "next/image";
 import { ArchitectureStack } from "@/components/architecture-stack";
-import {
-  documentKicker,
-  documentTitle,
-  lead,
-  sections,
-} from "@/lib/definition";
+import { lead, sections } from "@/lib/definition";
+import { featuredPost } from "@/lib/posts";
 
-export function DefinitionPage() {
+export function DefinitionArticle() {
   return (
-    <article className="mx-auto max-w-3xl px-5 py-10 pb-20">
+    <article className="mx-auto w-full max-w-3xl px-5 py-10 pb-20">
       <p className="text-[11px] font-semibold tracking-[0.14em] text-cyan uppercase">
-        {documentKicker}
+        Blog
       </p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-        {documentTitle}
+        {featuredPost.title}
       </h1>
-      <figure className="mt-6">
-        <Image
-          src="/banner.jpg"
-          alt="oTTeVerse — Build Your Digital Economy in The Metaverse"
-          width={1776}
-          height={576}
-          className="h-auto w-full rounded-md object-cover"
-          sizes="(min-width: 768px) 768px, 100vw"
-          priority
-        />
-      </figure>
+      <p className="mt-3 text-sm text-muted">
+        <time dateTime={featuredPost.date}>{featuredPost.dateLabel}</time>
+      </p>
       <div className="mt-6 space-y-4 text-base leading-7 text-foreground">
         {lead.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
@@ -70,7 +57,10 @@ export function DefinitionPage() {
                   {section.table.rows.map((row) => (
                     <tr key={row.join("|")}>
                       {row.map((cell) => (
-                        <td key={cell} className="border border-line px-3 py-2 align-top">
+                        <td
+                          key={cell}
+                          className="border border-line px-3 py-2 align-top"
+                        >
                           {cell}
                         </td>
                       ))}
