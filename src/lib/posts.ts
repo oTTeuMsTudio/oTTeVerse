@@ -78,6 +78,16 @@ export const mysticetiPost: Post = {
     "Sui’s uncertified block DAG commits in three message rounds in the good case, with a fast path woven into the same DAG for owned-object transactions.",
 };
 
+export const belugaPost: Post = {
+  slug: "explaining-the-beluga-synchronizer-mechanism",
+  href: "/blog/explaining-the-beluga-synchronizer-mechanism",
+  title: "Explaining the Beluga Synchronizer Mechanism",
+  date: "2026-09-20",
+  dateLabel: "20 September 2026",
+  description:
+    "The block dissemination layer under Mysticeti: how validators get DAG bytes when happy-path gossip fails, without turning missing hashes into a denial-of-service.",
+};
+
 export const posts: Post[] = [
   featuredPost,
   parallelPost,
@@ -86,6 +96,7 @@ export const posts: Post[] = [
   moveVmPost,
   blockStmSuiPost,
   mysticetiPost,
+  belugaPost,
 ];
 
 export function getPost(slug: string): Post | undefined {

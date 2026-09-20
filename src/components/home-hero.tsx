@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  belugaPost,
   blockStmSuiPost,
   featuredPost,
   moveVmPost,
@@ -69,6 +70,12 @@ export function HomeHero() {
           className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
         >
           {mysticetiPost.title}
+        </Link>
+        <Link
+          href={belugaPost.href}
+          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
+        >
+          {belugaPost.title}
         </Link>
       </div>
     </section>

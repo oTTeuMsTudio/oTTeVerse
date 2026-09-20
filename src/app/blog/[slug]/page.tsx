@@ -30,6 +30,11 @@ import {
   sections as mysticetiSections,
 } from "@/lib/mysticeti-consensus";
 import {
+  lead as belugaLead,
+  sections as belugaSections,
+} from "@/lib/beluga-synchronizer";
+import {
+  belugaPost,
   blockStmSuiPost,
   featuredPost,
   getPost,
@@ -54,6 +59,10 @@ const content = {
   [mysticetiPost.slug]: {
     lead: mysticetiLead,
     sections: mysticetiSections,
+  },
+  [belugaPost.slug]: {
+    lead: belugaLead,
+    sections: belugaSections,
   },
 };
 
