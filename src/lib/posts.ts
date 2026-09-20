@@ -58,12 +58,23 @@ export const moveVmPost: Post = {
     "How Move VM runs verified stack bytecode behind a data view so Aptos Block-STM can collect read/write sets and parallelize sequential-looking Move.",
 };
 
+export const blockStmSuiPost: Post = {
+  slug: "comparing-aptos-block-stm-with-sui",
+  href: "/blog/comparing-aptos-block-stm-with-sui",
+  title: "Comparing Aptos Block-STM with Sui",
+  date: "2026-09-20",
+  dateLabel: "20 September 2026",
+  description:
+    "Aptos discovers conflicts after the fact inside a totally ordered block. Sui encodes conflicts in the data model so many transactions never enter that block at all.",
+};
+
 export const posts: Post[] = [
   featuredPost,
   parallelPost,
   mvccPost,
   schedulerPost,
   moveVmPost,
+  blockStmSuiPost,
 ];
 
 export function getPost(slug: string): Post | undefined {

@@ -22,6 +22,11 @@ import {
   sections as moveVmSections,
 } from "@/lib/move-vm-execution";
 import {
+  lead as blockStmSuiLead,
+  sections as blockStmSuiSections,
+} from "@/lib/comparing-block-stm-sui";
+import {
+  blockStmSuiPost,
   featuredPost,
   getPost,
   moveVmPost,
@@ -37,6 +42,10 @@ const content = {
   [mvccPost.slug]: { lead: mvccLead, sections: mvccSections },
   [schedulerPost.slug]: { lead: schedulerLead, sections: schedulerSections },
   [moveVmPost.slug]: { lead: moveVmLead, sections: moveVmSections },
+  [blockStmSuiPost.slug]: {
+    lead: blockStmSuiLead,
+    sections: blockStmSuiSections,
+  },
 };
 
 export function generateStaticParams() {
