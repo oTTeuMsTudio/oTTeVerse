@@ -4,6 +4,7 @@ import {
   blockStmSuiPost,
   featuredPost,
   moveVmPost,
+  mysticetiPost,
   mvccPost,
   parallelPost,
   schedulerPost,
@@ -62,6 +63,12 @@ export function HomeHero() {
           className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
         >
           {blockStmSuiPost.title}
+        </Link>
+        <Link
+          href={mysticetiPost.href}
+          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
+        >
+          {mysticetiPost.title}
         </Link>
       </div>
     </section>

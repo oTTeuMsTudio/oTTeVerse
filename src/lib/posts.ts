@@ -68,6 +68,16 @@ export const blockStmSuiPost: Post = {
     "Aptos discovers conflicts after the fact inside a totally ordered block. Sui encodes conflicts in the data model so many transactions never enter that block at all.",
 };
 
+export const mysticetiPost: Post = {
+  slug: "examining-the-mysticeti-consensus-protocol",
+  href: "/blog/examining-the-mysticeti-consensus-protocol",
+  title: "Examining the Mysticeti Consensus Protocol",
+  date: "2026-09-20",
+  dateLabel: "20 September 2026",
+  description:
+    "Sui’s uncertified block DAG commits in three message rounds in the good case, with a fast path woven into the same DAG for owned-object transactions.",
+};
+
 export const posts: Post[] = [
   featuredPost,
   parallelPost,
@@ -75,6 +85,7 @@ export const posts: Post[] = [
   schedulerPost,
   moveVmPost,
   blockStmSuiPost,
+  mysticetiPost,
 ];
 
 export function getPost(slug: string): Post | undefined {

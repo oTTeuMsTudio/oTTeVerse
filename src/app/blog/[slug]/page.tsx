@@ -26,10 +26,15 @@ import {
   sections as blockStmSuiSections,
 } from "@/lib/comparing-block-stm-sui";
 import {
+  lead as mysticetiLead,
+  sections as mysticetiSections,
+} from "@/lib/mysticeti-consensus";
+import {
   blockStmSuiPost,
   featuredPost,
   getPost,
   moveVmPost,
+  mysticetiPost,
   mvccPost,
   parallelPost,
   posts,
@@ -45,6 +50,10 @@ const content = {
   [blockStmSuiPost.slug]: {
     lead: blockStmSuiLead,
     sections: blockStmSuiSections,
+  },
+  [mysticetiPost.slug]: {
+    lead: mysticetiLead,
+    sections: mysticetiSections,
   },
 };
 
