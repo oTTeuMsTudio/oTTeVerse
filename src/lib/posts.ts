@@ -48,7 +48,23 @@ export const schedulerPost: Post = {
     "How Aptos Block-STM schedules execute and validate work with atomic cursors, per-txn status, and waves instead of a giant priority queue.",
 };
 
-export const posts: Post[] = [featuredPost, parallelPost, mvccPost, schedulerPost];
+export const moveVmPost: Post = {
+  slug: "investigating-the-move-vm-execution-model",
+  href: "/blog/investigating-the-move-vm-execution-model",
+  title: "Investigating the Move VM Execution Model",
+  date: "2026-09-20",
+  dateLabel: "20 September 2026",
+  description:
+    "How Move VM runs verified stack bytecode behind a data view so Aptos Block-STM can collect read/write sets and parallelize sequential-looking Move.",
+};
+
+export const posts: Post[] = [
+  featuredPost,
+  parallelPost,
+  mvccPost,
+  schedulerPost,
+  moveVmPost,
+];
 
 export function getPost(slug: string): Post | undefined {
   return posts.find((post) => post.slug === slug);

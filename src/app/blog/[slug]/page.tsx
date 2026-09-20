@@ -18,8 +18,13 @@ import {
   sections as schedulerSections,
 } from "@/lib/block-stm-scheduler";
 import {
+  lead as moveVmLead,
+  sections as moveVmSections,
+} from "@/lib/move-vm-execution";
+import {
   featuredPost,
   getPost,
+  moveVmPost,
   mvccPost,
   parallelPost,
   posts,
@@ -31,6 +36,7 @@ const content = {
   [parallelPost.slug]: { lead: parallelLead, sections: parallelSections },
   [mvccPost.slug]: { lead: mvccLead, sections: mvccSections },
   [schedulerPost.slug]: { lead: schedulerLead, sections: schedulerSections },
+  [moveVmPost.slug]: { lead: moveVmLead, sections: moveVmSections },
 };
 
 export function generateStaticParams() {
