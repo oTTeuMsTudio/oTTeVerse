@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { featuredPost, mvccPost, parallelPost } from "@/lib/posts";
+import { featuredPost, mvccPost, parallelPost, schedulerPost } from "@/lib/posts";
 
 export function HomeHero() {
   return (
@@ -37,6 +37,12 @@ export function HomeHero() {
           className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
         >
           {mvccPost.title}
+        </Link>
+        <Link
+          href={schedulerPost.href}
+          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
+        >
+          {schedulerPost.title}
         </Link>
       </div>
     </section>

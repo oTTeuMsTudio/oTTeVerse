@@ -38,7 +38,17 @@ export const mvccPost: Post = {
     "How a Rust game-chain block executor versions state by transaction index with Block-STM MVCC so workers execute in parallel without blocking.",
 };
 
-export const posts: Post[] = [featuredPost, parallelPost, mvccPost];
+export const schedulerPost: Post = {
+  slug: "aptos-block-stm-scheduler",
+  href: "/blog/aptos-block-stm-scheduler",
+  title: "Aptos Block-STM Scheduler",
+  date: "2026-09-20",
+  dateLabel: "20 September 2026",
+  description:
+    "How Aptos Block-STM schedules execute and validate work with atomic cursors, per-txn status, and waves instead of a giant priority queue.",
+};
+
+export const posts: Post[] = [featuredPost, parallelPost, mvccPost, schedulerPost];
 
 export function getPost(slug: string): Post | undefined {
   return posts.find((post) => post.slug === slug);

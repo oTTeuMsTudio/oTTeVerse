@@ -14,17 +14,23 @@ import {
   sections as mvccSections,
 } from "@/lib/mvcc-implementation";
 import {
+  lead as schedulerLead,
+  sections as schedulerSections,
+} from "@/lib/block-stm-scheduler";
+import {
   featuredPost,
   getPost,
   mvccPost,
   parallelPost,
   posts,
+  schedulerPost,
 } from "@/lib/posts";
 
 const content = {
   [featuredPost.slug]: { lead: definitionLead, sections: definitionSections },
   [parallelPost.slug]: { lead: parallelLead, sections: parallelSections },
   [mvccPost.slug]: { lead: mvccLead, sections: mvccSections },
+  [schedulerPost.slug]: { lead: schedulerLead, sections: schedulerSections },
 };
 
 export function generateStaticParams() {
