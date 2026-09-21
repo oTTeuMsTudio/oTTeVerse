@@ -32,7 +32,14 @@ export default function BlogPage() {
           {posts.map((post) => (
             <li key={post.slug}>
               <article>
-                <h2 className="text-xl font-semibold tracking-tight">
+                {post.kicker ? (
+                  <p className="text-[11px] font-semibold tracking-[0.14em] text-cyan uppercase">
+                    {post.kicker}
+                  </p>
+                ) : null}
+                <h2
+                  className={`text-xl font-semibold tracking-tight ${post.kicker ? "mt-1" : ""}`}
+                >
                   <Link
                     href={post.href}
                     className="text-foreground hover:text-cyan"

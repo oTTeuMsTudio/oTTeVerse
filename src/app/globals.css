@@ -10,6 +10,9 @@
   --color-cyan: #00a8e8;
   --color-button: #0070a1;
   --color-button-hover: #00aff7;
+  --color-tip: #0f766e;
+  --color-warn: #b45309;
+  --color-rust: #c2410c;
 }
 
 html,

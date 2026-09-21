@@ -8,12 +8,22 @@ export type ArticleStep = {
   bullets?: string[];
 };
 
+export type CalloutTone = "info" | "tip" | "warn" | "rust" | "ue";
+
+export type ArticleTocItem = {
+  href: string;
+  label: string;
+};
+
 export type ArticleBlock =
   | { type: "paragraph"; text: string }
   | { type: "bullets"; items: string[] }
-  | { type: "code"; text: string }
+  | { type: "code"; text: string; label?: string }
   | { type: "table"; table: DefinitionTable }
-  | { type: "steps"; items: ArticleStep[] };
+  | { type: "steps"; items: ArticleStep[] }
+  | { type: "callout"; tone: CalloutTone; title: string; text: string }
+  | { type: "toc"; items: ArticleTocItem[] }
+  | { type: "subheading"; text: string };
 
 export type DefinitionSection = {
   id: string;

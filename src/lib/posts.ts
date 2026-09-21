@@ -7,6 +7,19 @@ export type Post = {
   date: string;
   dateLabel: string;
   description: string;
+  kicker?: string;
+};
+
+export const ue58Post: Post = {
+  slug: "how-to-build-a-game-in-ue-5-8-with-modern-rust-blockchain-for-digital-economy",
+  href: "/blog/how-to-build-a-game-in-ue-5-8-with-modern-rust-blockchain-for-digital-economy",
+  title:
+    "How to Build a Game in UE 5.8 with a Modern Rust Blockchain for Digital Economy",
+  date: "2026-09-21",
+  dateLabel: "21 September 2026",
+  description:
+    "Unreal Engine 5.8 runs the 60 FPS loop. A modern Rust blockchain settles items, land, and marketplaces as objects. This tutorial wires a UE 5.8 C++ plugin to an object-centric Rust L1.",
+  kicker: "Tutorial",
 };
 
 export const featuredPost: Post = {
@@ -89,6 +102,7 @@ export const belugaPost: Post = {
 };
 
 export const posts: Post[] = [
+  ue58Post,
   featuredPost,
   parallelPost,
   mvccPost,

@@ -1,15 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  belugaPost,
-  blockStmSuiPost,
-  featuredPost,
-  moveVmPost,
-  mysticetiPost,
-  mvccPost,
-  parallelPost,
-  schedulerPost,
-} from "@/lib/posts";
+import { posts } from "@/lib/posts";
 
 export function HomeHero() {
   return (
@@ -29,54 +20,20 @@ export function HomeHero() {
         />
       </figure>
       <div className="mt-6 flex flex-col items-stretch gap-3 sm:items-start">
-        <Link
-          href={featuredPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {featuredPost.title}
-        </Link>
-        <Link
-          href={parallelPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {parallelPost.title}
-        </Link>
-        <Link
-          href={mvccPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {mvccPost.title}
-        </Link>
-        <Link
-          href={schedulerPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {schedulerPost.title}
-        </Link>
-        <Link
-          href={moveVmPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {moveVmPost.title}
-        </Link>
-        <Link
-          href={blockStmSuiPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {blockStmSuiPost.title}
-        </Link>
-        <Link
-          href={mysticetiPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {mysticetiPost.title}
-        </Link>
-        <Link
-          href={belugaPost.href}
-          className="block w-full rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
-        >
-          {belugaPost.title}
-        </Link>
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            href={post.href}
+            className="block w-full min-w-0 break-words rounded-md bg-button px-5 py-3 text-center text-sm font-semibold text-white hover:bg-button-hover sm:inline-block sm:w-auto"
+          >
+            {post.kicker ? (
+              <span className="mb-1 block text-[10px] font-semibold tracking-[0.16em] uppercase text-white/80">
+                {post.kicker}
+              </span>
+            ) : null}
+            {post.title}
+          </Link>
+        ))}
       </div>
     </section>
   );

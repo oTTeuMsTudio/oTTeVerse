@@ -34,6 +34,10 @@ import {
   sections as belugaSections,
 } from "@/lib/beluga-synchronizer";
 import {
+  lead as ue58Lead,
+  sections as ue58Sections,
+} from "@/lib/ue58-game-rust-blockchain";
+import {
   belugaPost,
   blockStmSuiPost,
   featuredPost,
@@ -44,6 +48,7 @@ import {
   parallelPost,
   posts,
   schedulerPost,
+  ue58Post,
 } from "@/lib/posts";
 
 const content = {
@@ -63,6 +68,10 @@ const content = {
   [belugaPost.slug]: {
     lead: belugaLead,
     sections: belugaSections,
+  },
+  [ue58Post.slug]: {
+    lead: ue58Lead,
+    sections: ue58Sections,
   },
 };
 
