@@ -4,7 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { baseURL, description, indexable, siteName, title } from "@/config";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SiteMenu } from "@/components/site-menu";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -63,10 +62,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <SiteHeader />
-        <div className="flex min-h-0 flex-1">
-          <SiteMenu />
-          <div className="flex min-w-0 flex-1 flex-col">{children}</div>
-        </div>
+        <div className="flex min-h-0 flex-1 flex-col">{children}</div>
         <SiteFooter />
       </body>
     </html>

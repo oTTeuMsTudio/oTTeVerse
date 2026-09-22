@@ -174,30 +174,32 @@ export function NftStore() {
           {status}
         </p>
       ) : null}
-      <ul className="mt-5 grid grid-cols-1 gap-4 min-[560px]:grid-cols-2 xl:grid-cols-3">
+      <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {visible.map((item) => {
           const isOwned = owned.has(item.id);
           const buying = busyId === item.id;
           return (
             <li key={item.id}>
               <article className="flex h-full flex-col overflow-hidden rounded-lg border border-line bg-white">
-                <div className="aspect-square border-b border-line">
-                  <NftArtwork id={item.id} />
+                <div className="flex justify-center border-b border-line bg-[#e8f7fc] px-3 py-3">
+                  <div className="size-20 sm:size-24">
+                    <NftArtwork id={item.id} />
+                  </div>
                 </div>
-                <div className="flex flex-1 flex-col p-4">
+                <div className="flex flex-1 flex-col p-3">
                   <p className="text-[11px] font-semibold tracking-[0.14em] text-cyan uppercase">
                     {item.category}
                   </p>
                   <h2
                     id={`nft-${item.id}`}
-                    className="mt-1 text-lg font-semibold tracking-tight"
+                    className="mt-1 text-base font-semibold tracking-tight"
                   >
                     {item.name}
                   </h2>
                   <p className="mt-2 flex-1 text-sm leading-6 text-muted">
                     {item.summary}
                   </p>
-                  <div className="mt-4 flex items-center justify-between gap-3">
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                     <p className="text-sm font-semibold text-foreground">
                       {item.price} {nftCurrency}
                     </p>

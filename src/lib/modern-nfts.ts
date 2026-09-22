@@ -196,9 +196,9 @@ pub enum Owner {
         type: "steps",
         items: [
           {
-            title: "Open the [NFTs store](/nfts) from the left menu.",
+            title: "Open the [NFTs store](/nfts) from the top-right menu.",
             bullets: [
-              "Blog sits above NFTs. The store is the page, not a modal.",
+              "Blog sits beside NFTs, before Connect Wallet. The store is the page, not a modal.",
             ],
           },
           {

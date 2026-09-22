@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ConnectWallet } from "@/components/connect-wallet";
 import { LogInButton } from "@/components/log-in-button";
+import { SiteMenu } from "@/components/site-menu";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b-2 border-cyan bg-white">
-      <div className="flex h-16 w-full items-center justify-between gap-4 px-5">
+      <div className="flex h-16 w-full items-center justify-between gap-3 px-3 sm:gap-4 sm:px-5">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-2.5 text-foreground"
@@ -20,11 +21,12 @@ export function SiteHeader() {
             className="size-10 rounded-md object-cover"
             priority
           />
-          <span className="truncate text-[15px] font-semibold tracking-tight">
+          <span className="hidden truncate text-[15px] font-semibold tracking-tight sm:inline">
             oTTeVerse
           </span>
         </Link>
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+          <SiteMenu />
           <ConnectWallet />
           <LogInButton />
         </div>
