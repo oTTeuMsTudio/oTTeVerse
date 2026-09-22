@@ -730,6 +730,7 @@ pub fn fill(listing: &mut Listing, buyer: Address, payment: Coin) -> FillEffects
       {
         type: "bullets",
         items: [
+          "[What Are Modern NFTs and How to Use Them](/blog/what-are-modern-nfts-and-how-to-use-them) — the object you mint here, and how to collect, equip, and list it.",
           "[Modern Rust Blockchain for Games and Digital Economies](/blog/modern-rust-blockchain-for-games-and-digital-economies) — the layered architecture this tutorial implements.",
           "[Parallel Execution for Game Blockchains](/blog/parallel-execution-for-game-blockchains) — why independent inventories scale.",
           "[Implementing MVCC in Rust](/blog/implementing-mvcc-in-rust-for-parallel-game-blockchain-execution) — versions on every object your HUD already stores.",

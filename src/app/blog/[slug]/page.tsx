@@ -38,11 +38,16 @@ import {
   sections as ue58Sections,
 } from "@/lib/ue58-game-rust-blockchain";
 import {
+  lead as modernNftsLead,
+  sections as modernNftsSections,
+} from "@/lib/modern-nfts";
+import {
   belugaPost,
   blockStmSuiPost,
   featuredPost,
   getPost,
   moveVmPost,
+  modernNftsPost,
   mysticetiPost,
   mvccPost,
   parallelPost,
@@ -72,6 +77,10 @@ const content = {
   [ue58Post.slug]: {
     lead: ue58Lead,
     sections: ue58Sections,
+  },
+  [modernNftsPost.slug]: {
+    lead: modernNftsLead,
+    sections: modernNftsSections,
   },
 };
 

@@ -25,14 +25,6 @@ export function SiteHeader() {
           </span>
         </Link>
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <nav aria-label="Primary">
-            <Link
-              href="/blog"
-              className="shrink-0 text-sm font-medium text-muted underline-offset-4 hover:text-foreground hover:underline"
-            >
-              Blog
-            </Link>
-          </nav>
           <ConnectWallet />
           <LogInButton />
         </div>

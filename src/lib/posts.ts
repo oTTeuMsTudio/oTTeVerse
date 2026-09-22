@@ -22,6 +22,17 @@ export const ue58Post: Post = {
   kicker: "Tutorial",
 };
 
+export const modernNftsPost: Post = {
+  slug: "what-are-modern-nfts-and-how-to-use-them",
+  href: "/blog/what-are-modern-nfts-and-how-to-use-them",
+  title: "What Are Modern NFTs and How to Use Them",
+  date: "2026-09-22",
+  dateLabel: "22 September 2026",
+  description:
+    "A modern NFT is an owned object with an id, a type, a version, and capabilities. This tutorial shows how to collect one on the oTTeVerse store, then transfer, equip, and list it.",
+  kicker: "Tutorial",
+};
+
 export const featuredPost: Post = {
   slug: "modern-rust-blockchain-for-games-and-digital-economies",
   href: "/blog/modern-rust-blockchain-for-games-and-digital-economies",
@@ -103,6 +114,7 @@ export const belugaPost: Post = {
 
 export const posts: Post[] = [
   ue58Post,
+  modernNftsPost,
   featuredPost,
   parallelPost,
   mvccPost,
