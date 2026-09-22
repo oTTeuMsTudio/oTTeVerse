@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ConnectWallet } from "@/components/connect-wallet";
+import { LogInButton } from "@/components/log-in-button";
 
 export function SiteHeader() {
   return (
@@ -33,6 +34,7 @@ export function SiteHeader() {
             </Link>
           </nav>
           <ConnectWallet />
+          <LogInButton />
         </div>
       </div>
     </header>
