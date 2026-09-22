@@ -15,7 +15,26 @@ import {
 const INSTALL_URL = "https://metamask.io/download";
 
 const buttonClassName =
-  "shrink-0 rounded-md bg-button px-3 py-1.5 text-sm font-semibold text-white hover:bg-button-hover disabled:opacity-70";
+  "inline-flex shrink-0 items-center gap-1.5 rounded-md bg-button px-3 py-1.5 text-sm font-semibold text-white hover:bg-button-hover disabled:opacity-70";
+
+function WalletIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="size-4 shrink-0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="6" width="18" height="13" rx="2" />
+      <path d="M3 10h18" />
+      <circle cx="16.5" cy="14.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export function ConnectWallet() {
   const [account, setAccount] = useState<string | null>(null);
@@ -128,6 +147,7 @@ export function ConnectWallet() {
         }
         aria-busy={busy}
       >
+        <WalletIcon />
         {account ? (
           shortenAddress(account)
         ) : busy ? (
