@@ -774,7 +774,7 @@ pub fn fill(listing: &mut Listing, buyer: Address, payment: Coin) -> FillEffects
       {
         type: "bullets",
         items: [
-          "[What Are Modern NFTs and How to Use Them](/blog/what-are-modern-nfts-and-how-to-use-them) — the item you create here, and how to collect it, equip it, and list it.",
+          "[The Future of NFTs — Market Insights & Use Cases](/blog/what-are-modern-nfts-and-how-to-use-them) — the item you create here, and how to collect it, equip it, and list it.",
           "[Modern Rust Blockchain for Games and Digital Economies](/blog/modern-rust-blockchain-for-games-and-digital-economies) — the bigger design this tutorial follows.",
           "[Parallel Execution for Game Blockchains](/blog/parallel-execution-for-game-blockchains) — why two backpacks can update at the same time.",
           "[Implementing MVCC in Rust](/blog/implementing-mvcc-in-rust-for-parallel-game-blockchain-execution) — why every item your backpack stores also has a version number.",

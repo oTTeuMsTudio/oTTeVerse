@@ -38,7 +38,7 @@ export default function NftsPage() {
             href="/blog/what-are-modern-nfts-and-how-to-use-them"
             className="text-sm font-semibold text-cyan underline-offset-4 hover:underline"
           >
-            What Are Modern NFTs and How to Use Them
+            The Future of NFTs — Market Insights & Use Cases
           </Link>
         </p>
         <NftStore />
