@@ -18,7 +18,7 @@ export const ue58Post: Post = {
   date: "2026-09-21",
   dateLabel: "21 September 2026",
   description:
-    "Unreal Engine 5.8 runs the 60 FPS loop. A modern Rust blockchain settles items, land, and marketplaces as objects. This tutorial wires a UE 5.8 C++ plugin to an object-centric Rust L1.",
+    "Unreal Engine 5.8 runs the game. A blockchain written in Rust keeps the record of who owns the sword, the land, and the shop listing. This tutorial connects them, step by step.",
   kicker: "Tutorial",
 };
 

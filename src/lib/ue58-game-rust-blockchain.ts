@@ -1,82 +1,114 @@
 import type { DefinitionSection } from "@/lib/definition";
 
 export const lead = [
-  "Unreal Engine 5.8 is where the game *feels* like a game: Iris replication, Mover, World Partition, Mesh Terrain. A modern **Rust blockchain** is where the **digital economy** lives — items, land, currency, royalties, and marketplaces as first-class objects. This tutorial takes a UE 5.8 project from a blank Games template to a client that mints, equips, and trades assets on an object-centric Rust L1, without putting combat ticks on-chain.",
+  "This tutorial builds a small game in **Unreal Engine 5.8** and connects it to a **blockchain** written in the Rust programming language. The game stays fast. The blockchain is the shared notebook that says who owns the sword, the land, and the money.",
 ];
 
 export const sections: DefinitionSection[] = [
   {
     id: "what-you-ship",
-    title: "What you will ship",
+    title: "What you will build",
     blocks: [
       {
         type: "toc",
         items: [
-          { href: "#what-you-ship", label: "What you will ship" },
-          { href: "#split", label: "Keep gameplay off the chain" },
-          { href: "#prereqs", label: "Prerequisites" },
-          { href: "#architecture", label: "Architecture" },
-          { href: "#ue-project", label: "Create the UE 5.8 project" },
-          { href: "#plugins", label: "Enable Iris, HTTP, and WebSockets" },
-          { href: "#rust-objects", label: "Define chain objects in Rust" },
-          { href: "#rpc", label: "Expose a JSON-RPC surface" },
-          { href: "#cpp-plugin", label: "Build the C++ chain client" },
-          { href: "#wallet", label: "Wallet and player identity" },
-          { href: "#inventory", label: "Bind inventory to object events" },
-          { href: "#marketplace", label: "Shared-object marketplace" },
-          { href: "#server", label: "Dedicated server and coprocessor" },
-          { href: "#loop", label: "Local integration loop" },
-          { href: "#checklist", label: "Ship checklist" },
+          { href: "#what-you-ship", label: "What you will build" },
+          { href: "#split", label: "Keep the fight off the notebook" },
+          { href: "#prereqs", label: "What to install first" },
+          { href: "#architecture", label: "How the pieces fit" },
+          { href: "#ue-project", label: "Create the Unreal project" },
+          { href: "#plugins", label: "Turn on multiplayer and web chat" },
+          { href: "#rust-objects", label: "Describe items in Rust" },
+          { href: "#rpc", label: "Add a simple web door" },
+          { href: "#cpp-plugin", label: "Build the Unreal add-on" },
+          { href: "#wallet", label: "Prove who the player is" },
+          { href: "#inventory", label: "Show the backpack from the notebook" },
+          { href: "#marketplace", label: "Build the shop" },
+          { href: "#server", label: "Open a chest the fair way" },
+          { href: "#loop", label: "Test it on your computer" },
+          { href: "#checklist", label: "Checklist before you ship" },
         ],
       },
       {
         type: "paragraph",
-        text: "The finished slice is a third-person action prototype whose **cosmetics and tradable loot** are real chain objects. A player opens a chest in UE, the dedicated server attests the outcome, the Rust node mints an item object, and every other client sees that sword in the owner’s inventory through the indexer — not through a studio database.",
+        text: "When you finish, you have a third-person game. A player opens a chest. The game server checks the roll. The Rust program creates a real item. Every other player sees that sword in the owner's backpack because the notebook says so, not because a private studio database says so.",
+      },
+      {
+        type: "table",
+        table: {
+          headers: ["Word", "Plain meaning"],
+          rows: [
+            [
+              "Unreal Engine (UE)",
+              "The program that draws the game and moves your character.",
+            ],
+            [
+              "Blockchain",
+              "A shared notebook. Many computers keep the same copy, so one person cannot secretly change a line.",
+            ],
+            [
+              "Rust",
+              "The programming language used to write that notebook's software.",
+            ],
+            [
+              "Object",
+              "One thing in the notebook: a sword, a cloak, a piece of land, or a coin pile. It has an id, an owner, and a version number.",
+            ],
+            [
+              "Wallet",
+              "An app that proves 'this player is me' by signing a message. Like signing a permission slip.",
+            ],
+            [
+              "Mint",
+              "Create a new item and write it into the notebook.",
+            ],
+          ],
+        },
       },
       {
         type: "callout",
         tone: "info",
-        title: "The product, in one sentence",
-        text: "UE 5.8 runs the 60 FPS loop. Rust settles **ownership and value**. The bridge is a signed JSON-RPC + WebSocket plugin, not a validator inside the game process.",
+        title: "The whole idea, in one sentence",
+        text: "Unreal runs the game and keeps it smooth. Rust writes down who owns what and what it is worth. A small add-on in the game sends signed web messages. The blockchain does not run inside the game.",
       },
     ],
   },
   {
     id: "split",
-    title: "Keep gameplay off the chain",
+    title: "Keep the fight off the notebook",
     blocks: [
       {
         type: "paragraph",
-        text: "A digital-economy game dies the moment a jump waits on a block. Put settlement on L1 and keep the frame on the engine. This is the same split as [Modern Rust Blockchain for Games and Digital Economies](/blog/modern-rust-blockchain-for-games-and-digital-economies).",
+        text: "A game feels broken if a jump has to wait for the notebook. So the fight stays in Unreal. Buying, selling, and owning stay on the chain. This is the same split as [Modern Rust Blockchain for Games and Digital Economies](/blog/modern-rust-blockchain-for-games-and-digital-economies).",
       },
       {
         type: "table",
         table: {
-          headers: ["Lives in UE 5.8", "Lives on the Rust L1"],
+          headers: ["Stays in the game", "Goes in the notebook"],
           rows: [
             [
-              "Input, camera, animation, Chaos physics",
-              "Item / land / currency objects",
+              "Buttons, camera, animation, and physics",
+              "Swords, land, and coins",
             ],
             [
-              "Iris replication of pawns and projectiles",
-              "Ownership, versions, capabilities",
+              "Showing other players where you are",
+              "Who owns an item, and which version it is",
             ],
             [
-              "Mover locomotion and prediction",
-              "Marketplace fills and royalties",
+              "How your character walks and runs",
+              "Shop sales and the creator's cut of the price",
             ],
             [
-              "World Partition streaming, Mesh Terrain",
+              "Loading the part of the map near you",
               "Land deeds and rent",
             ],
             [
-              "Mutable cosmetics on the skeletal mesh",
-              "Cosmetic object metadata + content hash",
+              "How your character looks",
+              "A fingerprint of the outfit file, not the file itself",
             ],
             [
-              "Matchmaking, chat, anti-cheat sensors",
-              "Escrow, tournament prizes, attested results",
+              "Finding a match, chat, and cheat checks",
+              "Holding a prize until the match result is proven",
             ],
           ],
         },
@@ -84,59 +116,59 @@ export const sections: DefinitionSection[] = [
       {
         type: "callout",
         tone: "warn",
-        title: "Do not put combat ticks on L1",
-        text: "Each fire, dodge, and hit-react stays on the dedicated server. The chain sees **mint, burn, transfer, equip, list, fill** — typed object operations with sub-second finality on the fast path.",
+        title: "Do not write every punch into the notebook",
+        text: "Shots, dodges, and hits stay on the game server. The notebook only records six kinds of actions: create an item, destroy an item, give it to someone, equip it, put it up for sale, and buy it.",
       },
     ],
   },
   {
     id: "prereqs",
-    title: "Prerequisites",
+    title: "What to install first",
     blocks: [
       {
         type: "paragraph",
-        text: "Install the toolchain before you touch the plugin. UE 5.8 is the last planned major Unreal Engine 5 release; Iris is production-ready in this version, which is why this tutorial targets it.",
+        text: "Install these tools before you write any game code. Unreal Engine 5.8 is the last big Unreal Engine 5 release. Its multiplayer system, called Iris, is ready for a real game. That is why this tutorial uses 5.8.",
       },
       {
         type: "steps",
         items: [
           {
-            title: "**Unreal Engine 5.8** from the Epic Games Launcher or GitHub.",
+            title: "**Unreal Engine 5.8**, from the Epic Games Launcher or from GitHub.",
             bullets: [
-              "C++ Games template (third person is enough).",
-              "Visual Studio 2022 with the Game Development with C++ workload on Windows.",
+              "Start from the C++ Games template. The third-person sample is enough.",
+              "On Windows, install Visual Studio 2022 with the Game Development with C++ workload. That pack is what compiles Unreal's C++ code.",
             ],
           },
           {
-            title: "**Rust stable** (`rustup`) with `wasm32-unknown-unknown` for contracts.",
+            title: "**Rust**, using the `rustup` installer. Also add the `wasm32-unknown-unknown` target. That target turns the shop rules into a small program the notebook can run safely.",
           },
           {
-            title: "A local **object-centric node** from the oTTeVerse crate map: `node`, `execution`, `vm-wasm`, `objects`, `rpc`, `indexer`, `sdk`.",
+            title: "A local copy of the oTTeVerse chain. You need these code folders: `node`, `execution`, `vm-wasm`, `objects`, `rpc`, `indexer`, and `sdk`.",
           },
           {
-            title: "A wallet that can sign secp256k1 or ed25519 payloads. MetaMask via EIP-1193 is enough for the first vertical slice.",
+            title: "A wallet that can sign a message. MetaMask in the browser is enough for the first version.",
           },
         ],
       },
       {
         type: "callout",
         tone: "tip",
-        title: "Work in two terminals",
-        text: "Keep the Rust node + indexer in one terminal and the Unreal Editor in the other. The game never compiles the chain. It speaks HTTP and WebSockets to `rpc`.",
+        title: "Use two windows",
+        text: "One window runs the Rust notebook and the helper that lists your items. The other window is the Unreal Editor. The game never compiles the chain. It only talks to it over the web.",
       },
     ],
   },
   {
     id: "architecture",
-    title: "Architecture",
+    title: "How the pieces fit",
     blocks: [
       {
         type: "paragraph",
-        text: "Read this diagram top-down. Frames never cross the dotted line. Economy transactions always do.",
+        text: "Read this picture from top to bottom. Pictures and movement never cross the line. Ownership and money always do.",
       },
       {
         type: "code",
-        label: "hybrid loop",
+        label: "how the game and the notebook talk",
         text: `UE 5.8 client
   Iris + Mover + Enhanced Input
   OtteChain plugin (HTTP / WebSocket)
@@ -151,60 +183,64 @@ Gameplay dedicated server          Rust L1
               └──── coprocessor result ──────┘
                      (hash + signature)
 
-Indexer ──► inventory views, activity, “what changed”`,
+Indexer ──► inventory views, activity, "what changed"`,
       },
       {
         type: "paragraph",
-        text: "Owned-object transfers (equip, send a sword) take the **fast path** and skip full shared-object ordering. A marketplace pool is a **shared object** and goes through consensus. That is the same object model as the rest of this blog: independent inventories run in parallel; hubs serialize.",
+        text: "Here is that picture in normal words. **Iris** shows other players your character. **Mover** moves your character. **Enhanced Input** reads the keyboard and controller. The **OtteChain plugin** is the add-on that talks to the chain. A **signed JSON-RPC** message is a web request with your signature on it, so the chain knows it came from you. The **dedicated server** is the computer that runs the fight. The **Rust L1** is the main notebook. **Objects** are the items. **WASM contracts** are the small programs that enforce the shop rules. The **parallel scheduler** updates many different items at the same time. **Mysticeti** and **Beluga** are how the computers agree on the next page and how they catch up. The **coprocessor** rolls the chest and signs the result. The **indexer** keeps a ready-made list of your items so the game does not search the whole notebook every frame.",
+      },
+      {
+        type: "paragraph",
+        text: "Giving your own sword to a friend is the **fast path**. Only you own it, so the chain does not need a long meeting. A shop listing is **shared**, because many people might try to buy it at once. Those sales have to take turns. Two players' backpacks can update at the same time. The same shop listing cannot.",
       },
       {
         type: "callout",
         tone: "rust",
-        title: "Why Rust on the chain side",
-        text: "One language for the validator, the object store, WASM contracts, the indexer, and the SDK. The UE plugin stays C++. The FFI boundary is JSON-RPC, so you can swap a local node for a hosted RPC without rebuilding the game.",
+        title: "Why the notebook side is written in Rust",
+        text: "One language covers the chain's computers, the item storage, the shop rules, the item-list helper, and the toolkit. The Unreal add-on stays in C++. They talk with web messages, so later you can point the game at a hosted chain without rebuilding the game.",
       },
     ],
   },
   {
     id: "ue-project",
-    title: "1. Create the UE 5.8 project",
+    title: "1. Create the Unreal project",
     blocks: [
       {
         type: "steps",
         items: [
           {
-            title: "Launch the Epic Games Launcher and open **Unreal Engine 5.8**.",
+            title: "Open the Epic Games Launcher and start **Unreal Engine 5.8**.",
           },
           {
-            title: "New Project → Games → Third Person → C++. Name it `OtteRealm`. Enable starter content only if you want lighting to look finished in screenshots.",
+            title: "Choose New Project, then Games, then Third Person, then C++. Name it `OtteRealm`. Turn on starter content only if you want the screenshots to look finished.",
           },
           {
-            title: "In Project Settings → Packaging, set build configuration to **Development** while you iterate. Incremental cooking (beta in 5.8) plus Zenserver as the cooked output store is already the default — leave it on.",
+            title: "While you are still testing, open Project Settings, then Packaging, and set the build to **Development**. Unreal 5.8 already packages the game in smaller pieces and stores the result with Zenserver. Leave that on.",
           },
           {
-            title: "Create a plugin: Edit → Plugins → New Plugin → **Blank** → `OtteChain`. This is the only C++ you add for the chain.",
+            title: "Make the add-on: Edit, then Plugins, then New Plugin, then **Blank**. Name it `OtteChain`. This is the only new C++ you add for the chain.",
           },
         ],
       },
       {
         type: "callout",
         tone: "ue",
-        title: "5.8 features you actually use here",
-        text: "**Iris** is production-ready for pawn replication. **Mover** can optionally replicate through Iris. **Mutable** is production-ready for composing cosmetics from chain metadata. Mesh Terrain and PCG are how you fill the world — they never touch the ledger.",
+        title: "Three Unreal 5.8 tools you actually use",
+        text: "**Iris** copies your character to other players. **Mover** handles walking and running, and it can use Iris too. **Mutable** builds an outfit from pieces, using the item info from the notebook. The ground tools fill the world. They never write in the notebook.",
       },
     ],
   },
   {
     id: "plugins",
-    title: "2. Enable Iris, HTTP, and WebSockets",
+    title: "2. Turn on multiplayer and web chat",
     blocks: [
       {
         type: "paragraph",
-        text: "Iris replaces the old replication path for the multiplayer slice. HTTP and WebSockets are how the client talks to `rpc` and the indexer. None of these modules are the chain.",
+        text: "Iris is Unreal's newer way to copy characters to other players. HTTP is a normal web request: you ask, you get one answer. A WebSocket is a line that stays open, so the notebook can push an update the moment your items change. None of these is the blockchain. They are only how the game talks to it.",
       },
       {
         type: "subheading",
-        text: "DefaultEngine.ini",
+        text: "Tell Unreal to use Iris",
       },
       {
         type: "code",
@@ -218,7 +254,7 @@ net.Iris.UseIrisReplication=1`,
       },
       {
         type: "subheading",
-        text: "Plugin descriptor",
+        text: "Describe the add-on",
       },
       {
         type: "code",
@@ -243,7 +279,7 @@ net.Iris.UseIrisReplication=1`,
       },
       {
         type: "subheading",
-        text: "Build.cs modules",
+        text: "Modules the add-on is allowed to use",
       },
       {
         type: "code",
@@ -262,18 +298,18 @@ net.Iris.UseIrisReplication=1`,
       {
         type: "callout",
         tone: "tip",
-        title: "Enhanced Input for the wallet prompt",
-        text: "UE 5.8 unifies Enhanced Input with Common UI. Bind a `IA_OpenWallet` action to the pause menu so signing never fights the movement context. Do not pop a browser overlay during a dodge.",
+        title: "Open the wallet from the pause menu",
+        text: "Unreal 5.8 lets Enhanced Input work with menus. Make an action called `IA_OpenWallet` and put it on the pause menu. The player should not get a wallet popup in the middle of a dodge.",
       },
     ],
   },
   {
     id: "rust-objects",
-    title: "3. Define chain objects in Rust",
+    title: "3. Describe items in Rust",
     blocks: [
       {
         type: "paragraph",
-        text: "Treat every tradable thing as an **object** with a globally unique ID, an owner, a version, and capabilities. A sword is not a row in a SQL inventory table. It is an object the scheduler can run in parallel with every other player’s sword.",
+        text: "Every thing a player can trade is an **object**. It has an id nobody else has, an owner, a version number, and a list of what you are allowed to do with it. A sword is not a row in an ordinary database. It is one object. The chain can update your sword and a friend's sword at the same time, because they are different objects.",
       },
       {
         type: "code",
@@ -318,7 +354,7 @@ pub enum ItemType {
       },
       {
         type: "paragraph",
-        text: "Media stays off-chain. `content_hash` points at a mesh, texture, or Mutable recipe in your CDN or IPFS. UE loads the asset by hash after the indexer says the player owns the object.",
+        text: "The 3D model does not live in the notebook. `content_hash` is a fingerprint of the model file. The file itself sits on a normal file server, or on IPFS. After the indexer says the player owns the object, Unreal loads the model that matches that fingerprint.",
       },
       {
         type: "code",
@@ -334,45 +370,49 @@ pub enum ItemType {
 }`,
       },
       {
+        type: "paragraph",
+        text: "Those names are the only economy actions. `MintItem` creates an item. `Transfer` gives it to someone. `Equip` and `Unequip` put it on a character or take it off. `List` puts it in the shop. `Fill` means a buyer takes that listing. `AttestLoot` is the signed note that says what came out of a chest.",
+      },
+      {
         type: "callout",
         tone: "rust",
-        title: "Capabilities, not admin keys",
-        text: "`MintItem` should require a `TreasuryCap` object the studio (or a time-locked DAO) holds. Players never get a silent mint. This matches the security model in the architecture post: supply changes are typed object operations.",
+        title: "A special key, not a hidden admin button",
+        text: "Creating an item should require a special object called a TreasuryCap. The studio holds it, or a group that can use it only after a time lock. Players cannot quietly print new items. Making more supply is a named action.",
       },
     ],
   },
   {
     id: "rpc",
-    title: "4. Expose a JSON-RPC surface",
+    title: "4. Add a simple web door",
     blocks: [
       {
         type: "paragraph",
-        text: "The game client should not speak the validator wire protocol. Give it three calls and a subscription. Keep payloads small — object IDs and versions, not meshes.",
+        text: "The game should not speak the chain's private language. Give it three requests and one live update. Send item ids and version numbers. Do not send 3D models.",
       },
       {
         type: "table",
         table: {
-          headers: ["Method", "Who calls it", "What it returns"],
+          headers: ["Request", "Who uses it", "What comes back"],
           rows: [
             [
               "otte_getOwnedObjects",
-              "client on login / inventory open",
-              "id, type, version, stats, content_hash",
+              "The game, when you log in or open the backpack",
+              "Id, type, version, stats, and the file fingerprint",
             ],
             [
               "otte_submitTx",
-              "client after a wallet signature",
-              "digest + effects (created / mutated / deleted)",
+              "The game, after the wallet signs",
+              "A receipt: what was created, changed, or deleted",
             ],
             [
               "otte_getObject",
-              "client when an actor spawns",
-              "canonical object bytes",
+              "The game, when an item appears in the world",
+              "The full object",
             ],
             [
               "otte_subscribeOwner",
-              "client WebSocket",
-              "push when that address’s objects change",
+              "The open web line (WebSocket)",
+              "A push the moment that player's items change",
             ],
           ],
         },
@@ -399,17 +439,17 @@ pub async fn get_owned_objects(
       },
       {
         type: "paragraph",
-        text: "The indexer is a dedicated Rust crate. It materializes inventory views so the game never scans the object DB on the frame thread. See the architecture post’s “game indexer” note: *what changed since last frame* is an event, not a full rescan.",
+        text: "The indexer is its own Rust program. It builds the backpack list ahead of time. The game reads that list. It does not search the whole notebook while it is drawing a frame. 'What changed since last time' arrives as a message.",
       },
     ],
   },
   {
     id: "cpp-plugin",
-    title: "5. Build the C++ chain client",
+    title: "5. Build the Unreal add-on",
     blocks: [
       {
         type: "paragraph",
-        text: "One `UOtteChainClient` subsystem owns HTTP for submits and a WebSocket for the owner subscription. Gameplay code never calls `FHttpModule` directly.",
+        text: "One class, `UOtteChainClient`, sends the web requests and listens for updates. The rest of the game never talks to the web by itself. A subsystem is Unreal's name for a helper that lives as long as the game is running.",
       },
       {
         type: "code",
@@ -439,7 +479,7 @@ private:
       },
       {
         type: "code",
-        label: "OtteChainClient.cpp (submit)",
+        label: "OtteChainClient.cpp (send a signed action)",
         text: `void UOtteChainClient::SubmitTx(const FString& SignedPayload)
 {
     const TSharedRef<IHttpRequest> Req = FHttpModule::Get().CreateRequest();
@@ -455,7 +495,7 @@ private:
       },
       {
         type: "code",
-        label: "OtteChainClient.cpp (subscribe)",
+        label: "OtteChainClient.cpp (listen for changes)",
         text: `void UOtteChainClient::Connect(const FString& InRpcUrl, const FString& WsUrl)
 {
     RpcUrl = InRpcUrl;
@@ -474,52 +514,52 @@ private:
       {
         type: "callout",
         tone: "warn",
-        title: "Keep JSON off the game thread",
-        text: "Parse indexer payloads on a worker (`AsyncTask(ENamedThreads::AnyBackgroundThreadNormalTask)`) and marshal the `TArray<FOtteItem>` back with `AsyncTask(ENamedThreads::GameThread)`. A 2 KB inventory is fine; a 2 MB dump in `Tick` is not.",
+        title: "Do not read the answer while drawing a frame",
+        text: "Read the JSON on a background task (`AsyncTask(ENamedThreads::AnyBackgroundThreadNormalTask)`). Then hand the item list back to the game thread with `AsyncTask(ENamedThreads::GameThread)`. A small backpack is fine. A huge dump inside `Tick` will make the game stutter.",
       },
     ],
   },
   {
     id: "wallet",
-    title: "6. Wallet and player identity",
+    title: "6. Prove who the player is",
     blocks: [
       {
         type: "paragraph",
-        text: "Day-one players should not be forced through a seed phrase before the tutorial dungeon. Use passkeys or zkLogin for the account object, and treat an injected EIP-1193 wallet as the power-user path for trading.",
+        text: "On the first day, do not make the player write down a secret phrase before the tutorial dungeon. Use a passkey, the same idea as Face ID or a device PIN, or a login that turns a normal account into a chain account. Players who want to trade can connect a browser wallet such as MetaMask later.",
       },
       {
         type: "steps",
         items: [
           {
-            title: "On first launch, create a **player object** on-chain with a passkey credential. That object owns the character object.",
+            title: "On the first launch, create a **player object** in the notebook, using a passkey. That object owns the character object.",
           },
           {
-            title: "Bind an optional external wallet later with an atomic `Transfer` of a `WalletLink` capability — the character does not move.",
+            title: "Later, the player can link an outside wallet. That link is its own small object. The character does not move.",
           },
           {
-            title: "Every economy tx is signed in a Common UI modal (`WBP_SignTx`) that shows human text: “Mint Iron Sword”, “List for 12 GOLD”, never a raw hex dump as the only copy.",
+            title: "Every money action is signed in a menu (`WBP_SignTx`) that uses plain words: “Mint Iron Sword” or “List for 12 GOLD”. Do not show only a long hex string.",
           },
         ],
       },
       {
         type: "paragraph",
-        text: "For a web companion (the oTTeVerse site already uses EIP-6963 MetaMask discovery), the same address owns the same objects. The game and the site are two clients of one ledger.",
+        text: "The oTTeVerse website already finds MetaMask in the browser. The same address owns the same items in the game and on the site. Two apps, one notebook.",
       },
       {
         type: "callout",
         tone: "info",
-        title: "Session keys for micro-actions",
-        text: "Equip and loot-ack can use a session key with a spending cap and a 30-minute TTL so the player is not prompted on every chest. Listings and withdrawals always require the root signer.",
+        title: "A short permission slip for small actions",
+        text: "A session key can last 30 minutes and it can have a spending limit. Opening chests and equipping gear can use it, so the player is not asked to sign every time. Putting an item up for sale, and taking money out, still need the main key.",
       },
     ],
   },
   {
     id: "inventory",
-    title: "7. Bind inventory to object events",
+    title: "7. Show the backpack from the notebook",
     blocks: [
       {
         type: "paragraph",
-        text: "Drive the HUD from chain events. The dedicated server may *predict* a drop for juice; the item actor only becomes tradable after `otte_submitTx` returns effects that include a created `GameItem`.",
+        text: "Build the backpack screen from messages sent by the chain. The game server may show a drop right away, so the game feels instant. The item is only really yours, and only tradable, after `otte_submitTx` answers that a `GameItem` was created.",
       },
       {
         type: "code",
@@ -550,23 +590,23 @@ void AOtteInventory::RebuildFromChain(const TArray<FOtteItem>& Items)
       },
       {
         type: "paragraph",
-        text: "Use **Mutable** (production-ready in 5.8) to assemble the skeletal mesh from cosmetic objects. Each cosmetic is an owned object; Mutable parameters are the stats payload. When the player trades the cloak, the next `RebuildFromChain` drops that parameter. No studio database row to go stale.",
+        text: "**Mutable**, which is ready in Unreal 5.8, builds the character from cosmetic objects. Each cosmetic is an owned object. When the player trades the cloak, the next backpack update removes it. There is no old database row left behind to go stale.",
       },
       {
         type: "callout",
         tone: "ue",
-        title: "Iris only replicates the visual",
-        text: "Replicate `Slots` as a compact struct (id + version + hash) so other players see the cloak. The authority for *who owns it* remains the chain. If a client lies, the next indexer push corrects the HUD.",
+        title: "Iris only copies what other players should see",
+        text: "Copy a short note for each slot: the id, the version, and the file fingerprint. That is enough for other players to see the cloak. Who owns it is decided by the notebook. If a cheater's game lies, the next update from the indexer fixes the screen.",
       },
     ],
   },
   {
     id: "marketplace",
-    title: "8. Shared-object marketplace",
+    title: "8. Build the shop",
     blocks: [
       {
         type: "paragraph",
-        text: "A listing is a shared object. Two buyers racing to fill it is a real conflict — this is where [parallel execution](/blog/parallel-execution-for-game-blockchains) and [Block-STM](/blog/aptos-block-stm-scheduler) earn their keep. Independent listings still run concurrently.",
+        text: "A shop listing is a shared object. Two buyers can press Buy at the same moment. That clash is real. This is where [parallel execution](/blog/parallel-execution-for-game-blockchains) and the [Block-STM scheduler](/blog/aptos-block-stm-scheduler) matter. Listings for different items can still sell at the same time.",
       },
       {
         type: "code",
@@ -593,135 +633,139 @@ pub fn fill(listing: &mut Listing, buyer: Address, payment: Coin) -> FillEffects
       },
       {
         type: "paragraph",
-        text: "In UE, `WBP_MarketRow` calls `SubmitTx` with a `Fill` payload. Disable the button locally on click, then wait for the owner subscription. If the fill loses the race, the indexer pushes an error effect and the row returns to “listed.”",
+        text: "`royalty_bps` is the creator's cut, measured in hundredths of a percent. 500 means 5 percent. The code checks that the buyer paid enough, takes that cut, pays the seller the rest, gives the item to the buyer, and deletes the listing.",
+      },
+      {
+        type: "paragraph",
+        text: "In Unreal, the shop row button sends a `Fill` message. Turn the button off as soon as it is clicked, then wait for the update. If someone else bought it first, the indexer sends an error and the row goes back to “listed.”",
       },
       {
         type: "callout",
         tone: "tip",
-        title: "Royalties at transfer time",
-        text: "Enforce creator cuts in the `Fill` / `Transfer` operation, not in a courtesy contract the marketplace can skip. Protocol-level royalties are part of the digital-economy primitive set.",
+        title: "Take the creator's cut inside the sale",
+        text: "Put the cut in the `Fill` and `Transfer` actions. Do not trust the shop to send it later as a favor. If the cut is part of the sale, a shop cannot skip it.",
       },
     ],
   },
   {
     id: "server",
-    title: "9. Dedicated server and coprocessor",
+    title: "9. Open a chest the fair way",
     blocks: [
       {
         type: "paragraph",
-        text: "The UE dedicated server is the authority for *what happened in the room*. It is not the authority for *who owns the sword*. After a chest opens, the server runs the loot table in an off-chain WASM coprocessor (or native Rust), then posts an `AttestLoot` transaction with a result hash.",
+        text: "The Unreal dedicated server decides what happened in the room. It does not decide who owns the sword. After a chest opens, a helper program rolls the loot outside the notebook and signs the result. The chain checks that signature, then creates the item. That helper is called a coprocessor.",
       },
       {
         type: "steps",
         items: [
           {
-            title: "Chest actor on the server rolls the table with a commit-reveal seed.",
+            title: "The chest on the server rolls the loot table with a seed that was locked in before the roll. That way the server cannot change the result after seeing it.",
           },
           {
-            title: "Coprocessor returns `{ item_type, stats, content_hash }` and a signature over that payload.",
+            title: "The helper returns the item type, the stats, the file fingerprint, and a signature over that answer.",
           },
           {
-            title: "Server (or a relayer the player co-signs) submits `AttestLoot`. The WASM contract mints the `GameItem` to the player object.",
+            title: "The server, or a messenger the player also signs, sends `AttestLoot`. The shop-rules program then mints the `GameItem` to the player.",
           },
           {
-            title: "Indexer pushes the new object. Clients spawn the pickup mesh from `content_hash`.",
+            title: "The indexer pushes the new object. Each game client shows the pickup using the file fingerprint.",
           },
         ],
       },
       {
         type: "callout",
         tone: "warn",
-        title: "Never mint from a single game server key",
-        text: "A stolen dedicated-server binary should not be an unbounded treasury. Gate `AttestLoot` on a coprocessor signature set, a rate limit, and a `TreasuryCap` with a daily mint ceiling.",
+        title: "Do not let one game-server key print unlimited items",
+        text: "If someone steals the server program, they should not own the treasury. `AttestLoot` should need the helper's signature, a speed limit, and a TreasuryCap that can create only so many items per day.",
       },
     ],
   },
   {
     id: "loop",
-    title: "10. Local integration loop",
+    title: "10. Test it on your computer",
     blocks: [
       {
         type: "paragraph",
-        text: "Run this until a chest drop survives a client reconnect. That is the moment the economy is real.",
+        text: "Practice until a chest drop is still in the backpack after you close the game and open it again. That is the moment the economy is real.",
       },
       {
         type: "steps",
         items: [
           {
-            title: "Start the Rust node: `cargo run -p node -- --dev`. Confirm RPC on `127.0.0.1:9000` and WS on `9001`.",
+            title: "Start the Rust node: `cargo run -p node -- --dev`. Check that web requests answer on `127.0.0.1:9000` and the live line is on `9001`.",
           },
           {
             title: "Start the indexer: `cargo run -p indexer -- --rpc http://127.0.0.1:9000`.",
           },
           {
-            title: "In Unreal, set `OtteChain.RpcUrl` and `OtteChain.WsUrl` in **Project Settings → oTTeVerse Chain**.",
+            title: "In Unreal, set `OtteChain.RpcUrl` and `OtteChain.WsUrl` under **Project Settings**, then **oTTeVerse Chain**.",
           },
           {
-            title: "PIE as Listen Server. Open a chest. Watch `otte_submitTx` in the node log, then the HUD slot fill.",
+            title: "Press Play as a Listen Server. PIE means Play In Editor, Unreal's play button. Open a chest. Watch `otte_submitTx` in the node log, then watch the backpack slot fill in.",
           },
           {
-            title: "Stop PIE, start again. `RequestOwnedObjects` must restore the sword. If it does not, you stored the item only in the actor.",
+            title: "Stop play, then press Play again. `RequestOwnedObjects` must bring the sword back. If it does not, you saved the item only inside the actor, not in the notebook.",
           },
           {
-            title: "Open a second PIE window as a client. The cloak should replicate through Iris *and* match the indexer.",
+            title: "Open a second Play window as a client. The cloak should show up through Iris, and it should match the indexer's list.",
           },
         ],
       },
       {
         type: "callout",
         tone: "tip",
-        title: "MCP plugin is optional scaffolding",
-        text: "UE 5.8 ships an experimental MCP plugin so an LLM can create Blueprints and assets inside the editor. Use it to stub HUD widgets. Do not let it author economy contracts — those stay in the Rust repo with tests against an in-memory object store.",
+        title: "The editor AI helper is optional",
+        text: "Unreal 5.8 has an experimental MCP plugin. An AI can use it to stub out menu widgets inside the editor. Do not let it write the economy rules. Those stay in the Rust project, with tests against a practice item store.",
       },
     ],
   },
   {
     id: "checklist",
-    title: "Ship checklist",
+    title: "Checklist before you ship",
     blocks: [
       {
         type: "table",
         table: {
-          headers: ["Gate", "Pass when"],
+          headers: ["Check", "It passes when"],
           rows: [
             [
-              "Reconnect",
-              "Inventory rebuilds from the indexer with matching versions",
+              "Close and reopen",
+              "The backpack rebuilds from the indexer, and the version numbers match",
             ],
             [
-              "Fast path",
-              "Owned-object transfer (equip) finalizes in a few hundred ms",
+              "Your own item",
+              "Equipping it finishes in a few hundred milliseconds",
             ],
             [
-              "Shared path",
-              "Two buyers, one listing: exactly one fill, the other errors cleanly",
+              "The shop",
+              "Two buyers, one listing: exactly one sale works, and the other gets a clear error",
             ],
             [
-              "Royalty",
-              "Creator cut is in the Fill effects, not a side payment",
+              "Creator's cut",
+              "The cut is inside the sale receipt, not a separate payment someone might skip",
             ],
             [
-              "Session key",
-              "Loot-ack works without a root-signer prompt; withdraw does not",
+              "Short permission slip",
+              "Opening a chest works without the main signature prompt. Taking money out does not",
             ],
             [
-              "Content hash",
-              "Unknown hash shows a placeholder mesh, never a crash",
+              "Missing file",
+              "An unknown fingerprint shows a placeholder model. It never crashes",
             ],
             [
-              "Iris",
-              "Remote pawns show cosmetics; a hacked client cannot grant items",
+              "Other players",
+              "They see your outfit. A cheated client cannot grant itself items",
             ],
             [
               "Fees",
-              "Micro-actions are near-zero; listings can pay a priority fee",
+              "Small actions cost almost nothing. A shop listing can pay extra to go first",
             ],
           ],
         },
       },
       {
         type: "paragraph",
-        text: "When those gates pass, you have a UE 5.8 game on a modern Rust blockchain for a digital economy: **objects as items**, **Iris as the multiplayer fabric**, **WASM as the contract runtime**, and **gameplay still at 60 FPS**.",
+        text: "When those checks pass, you have a Unreal Engine 5.8 game on a Rust blockchain. **Items are objects. Other players see you through Iris. The shop rules are small safe programs. The fight still runs at a smooth frame rate.**",
       },
       {
         type: "subheading",
@@ -730,11 +774,11 @@ pub fn fill(listing: &mut Listing, buyer: Address, payment: Coin) -> FillEffects
       {
         type: "bullets",
         items: [
-          "[What Are Modern NFTs and How to Use Them](/blog/what-are-modern-nfts-and-how-to-use-them) — the object you mint here, and how to collect, equip, and list it.",
-          "[Modern Rust Blockchain for Games and Digital Economies](/blog/modern-rust-blockchain-for-games-and-digital-economies) — the layered architecture this tutorial implements.",
-          "[Parallel Execution for Game Blockchains](/blog/parallel-execution-for-game-blockchains) — why independent inventories scale.",
-          "[Implementing MVCC in Rust](/blog/implementing-mvcc-in-rust-for-parallel-game-blockchain-execution) — versions on every object your HUD already stores.",
-          "[Examining the Mysticeti Consensus Protocol](/blog/examining-the-mysticeti-consensus-protocol) and [Explaining the Beluga Synchronizer Mechanism](/blog/explaining-the-beluga-synchronizer-mechanism) — how the node commits and fetches blocks under the RPC you call.",
+          "[What Are Modern NFTs and How to Use Them](/blog/what-are-modern-nfts-and-how-to-use-them) — the item you create here, and how to collect it, equip it, and list it.",
+          "[Modern Rust Blockchain for Games and Digital Economies](/blog/modern-rust-blockchain-for-games-and-digital-economies) — the bigger design this tutorial follows.",
+          "[Parallel Execution for Game Blockchains](/blog/parallel-execution-for-game-blockchains) — why two backpacks can update at the same time.",
+          "[Implementing MVCC in Rust](/blog/implementing-mvcc-in-rust-for-parallel-game-blockchain-execution) — why every item your backpack stores also has a version number.",
+          "[Examining the Mysticeti Consensus Protocol](/blog/examining-the-mysticeti-consensus-protocol) and [Explaining the Beluga Synchronizer Mechanism](/blog/explaining-the-beluga-synchronizer-mechanism) — how the computers agree on the next page, and how they catch up, under the web door your game calls.",
         ],
       },
     ],
