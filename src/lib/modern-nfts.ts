@@ -232,9 +232,9 @@ pub enum Owner {
         type: "steps",
         items: [
           {
-            title: "Open the [NFTs store](/nfts) from the top-right menu.",
+            title: "Open the [NFTs store](/nfts) from the header menu.",
             bullets: [
-              "Blog sits beside NFTs, before Connect Wallet. The store is its own page.",
+              "Blog and NFTs are in the top bar. The bar under that has Browse, News, Categories, search, and Catalog.",
             ],
           },
           {

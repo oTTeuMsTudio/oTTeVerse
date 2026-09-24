@@ -15,7 +15,7 @@ import {
 const INSTALL_URL = "https://metamask.io/download";
 
 const buttonClassName =
-  "inline-flex shrink-0 items-center gap-1.5 rounded-md bg-button px-3 py-1.5 text-sm font-semibold text-white hover:bg-button-hover disabled:opacity-70";
+  "inline-flex h-8 shrink-0 items-center gap-1.5 rounded-[2px] bg-gradient-to-b from-[#75b022] to-[#588a1b] px-2.5 text-[13px] font-normal text-[#d2efa9] shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] hover:from-[#8bc53f] hover:to-[#6aa621] hover:text-white disabled:opacity-70";
 
 function WalletIcon() {
   return (

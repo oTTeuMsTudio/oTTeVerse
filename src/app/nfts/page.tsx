@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { NftStore } from "@/components/nft-store";
 
 const heading = "Game NFTs";
@@ -47,7 +48,13 @@ export default function NftsPage() {
             The Future of NFTs — Market Insights & Use Cases
           </Link>
         </p>
-        <NftStore />
+        <Suspense
+          fallback={
+            <p className="mt-8 text-sm text-[#d5e2ee]">Loading the catalog…</p>
+          }
+        >
+          <NftStore />
+        </Suspense>
       </div>
     </main>
   );

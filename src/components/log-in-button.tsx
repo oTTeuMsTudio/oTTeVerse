@@ -24,12 +24,10 @@ export function LogInButton() {
     <Link
       href="/login"
       aria-label="Log in"
-      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-line bg-white pr-1.5 pl-1.5 text-sm font-semibold text-foreground hover:border-cyan hover:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan sm:pr-3"
+      className="inline-flex h-8 shrink-0 items-center gap-1.5 px-1.5 text-[12px] text-[#b8b6b4] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#67c1f5]"
     >
-      <span className="inline-flex size-6 items-center justify-center rounded-full bg-button text-white">
-        <ProfileIcon />
-      </span>
-      <span className="hidden sm:inline">Log in</span>
+      <ProfileIcon className="size-3.5" />
+      <span className="hidden sm:inline">log in</span>
     </Link>
   );
 }

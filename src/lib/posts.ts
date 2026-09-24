@@ -1,5 +1,3 @@
-import { lead, stripMarkup } from "@/lib/definition";
-
 export type Post = {
   slug: string;
   href: string;
@@ -50,7 +48,8 @@ export const featuredPost: Post = {
   title: "Modern Rust Blockchain for Games and Digital Economies",
   date: "2026-09-19",
   dateLabel: "19 September 2026",
-  description: stripMarkup(lead[0]),
+  description:
+    "A modern Rust blockchain for games and metaverse economies should treat assets as first-class objects, keep gameplay off the hot path, and settle ownership + value on a high-throughput L1. The design below is a synthesis of what works in production (object-centric models like Sui, parallel execution like Solana/Aptos, hybrid on/off-chain game loops) rather than a clone of any one chain.",
 };
 
 export const parallelPost: Post = {

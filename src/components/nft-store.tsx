@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { GameBanner, GameMark, NftArtwork } from "@/components/nft-artwork";
 import {
@@ -66,12 +67,73 @@ const rarityClass: Record<NftRarity, string> = {
 const fieldClass =
   "h-11 rounded-xl border border-[#1f2937] bg-[#0d1721] px-3 text-sm text-white outline-none focus:border-cyan";
 
+function isNftCategory(value: string | null): value is NftCategory {
+  return value === "Land" || value === "Item" || value === "Wearable";
+}
+
+function gameFromParam(value: string | null) {
+  if (!value || !nftGames.some((game) => game.id === value)) {
+    return null;
+  }
+  return value;
+}
+
 export function NftStore() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+  const gameParam = searchParams.get("game");
+  const queryParam = searchParams.get("q");
+  const initialCategory = isNftCategory(categoryParam) ? categoryParam : "All";
+  const initialGameId = gameFromParam(gameParam);
+  const initialQuery = queryParam ?? "";
+
+  return (
+    <NftStoreScreen
+      initialCategory={initialCategory}
+      initialGameId={initialGameId}
+      initialQuery={initialQuery}
+    />
+  );
+}
+
+function NftStoreScreen({
+  initialCategory,
+  initialGameId,
+  initialQuery,
+}: {
+  initialCategory: NftCategory | "All";
+  initialGameId: string | null;
+  initialQuery: string;
+}) {
   const [account, setAccount] = useState<string | null>(null);
   const [owned, setOwned] = useState<ReadonlySet<string>>(() => new Set());
-  const [query, setQuery] = useState("");
-  const [gameId, setGameId] = useState<string | null>(null);
-  const [category, setCategory] = useState<NftCategory | "All">("All");
+  const paramKey = `${initialCategory}|${initialGameId ?? ""}|${initialQuery}`;
+  const [filters, setFilters] = useState(() => ({
+    key: paramKey,
+    category: initialCategory,
+    gameId: initialGameId,
+    query: initialQuery,
+  }));
+  const category = filters.key === paramKey ? filters.category : initialCategory;
+  const gameId = filters.key === paramKey ? filters.gameId : initialGameId;
+  const query = filters.key === paramKey ? filters.query : initialQuery;
+
+  function setQuery(next: string) {
+    setFilters({ key: paramKey, category, gameId, query: next });
+  }
+
+  function setGameId(next: string | null | ((current: string | null) => string | null)) {
+    setFilters({
+      key: paramKey,
+      category,
+      gameId: typeof next === "function" ? next(gameId) : next,
+      query,
+    });
+  }
+
+  function setCategory(next: NftCategory | "All") {
+    setFilters({ key: paramKey, category: next, gameId, query });
+  }
   const [rarities, setRarities] = useState<NftRarity[]>([]);
   const [price, setPrice] = useState<PriceBand>("any");
   const [status, setStatus] = useState<StatusFilter>("all");
@@ -225,9 +287,7 @@ export function NftStore() {
     (status === "all" ? 0 : 1);
 
   function clearFilters() {
-    setQuery("");
-    setGameId(null);
-    setCategory("All");
+    setFilters({ key: paramKey, category: "All", gameId: null, query: "" });
     setRarities([]);
     setPrice("any");
     setStatus("all");
@@ -407,7 +467,7 @@ export function NftStore() {
       <div className="mt-4 lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:items-start lg:gap-6">
         <aside
           id="nft-filters"
-          className={`rounded-xl border border-[#1f2937] bg-[#0d1721] p-4 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto ${
+          className={`rounded-xl border border-[#1f2937] bg-[#0d1721] p-4 lg:sticky lg:top-28 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto ${
             filtersOpen ? "block" : "hidden lg:block"
           }`}
         >
