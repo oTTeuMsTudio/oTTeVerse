@@ -6,11 +6,11 @@ import { SiteMenu } from "@/components/site-menu";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b-2 border-cyan bg-white">
+    <header className="ue58-menu sticky top-0 z-20 border-b-2 border-cyan">
       <div className="flex h-16 w-full items-center justify-between gap-3 px-3 sm:gap-4 sm:px-5">
         <Link
           href="/"
-          className="flex min-w-0 items-center gap-2.5 text-foreground"
+          className="flex min-w-0 items-center gap-2.5 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]"
           aria-label="oTTeVerse home"
         >
           <Image
