@@ -10,6 +10,17 @@ export type Post = {
   kicker?: string;
 };
 
+export const web3GamingPost: Post = {
+  slug: "the-web3-gaming-landscape-reset",
+  href: "/blog/the-web3-gaming-landscape-reset",
+  title:
+    "The Web3 Gaming Landscape Reset: From Play-to-Earn to Play-and-Own",
+  date: "2026-09-24",
+  dateLabel: "24 September 2026",
+  description:
+    "Web3 games left hyper-speculative Play-to-Earn after most early titles collapsed under token inflation. Gameplay comes first. NFTs record what players own, and casual players never have to touch a wallet just to play.",
+};
+
 export const ue58Post: Post = {
   slug: "how-to-build-a-game-in-ue-5-8-with-modern-rust-blockchain-for-digital-economy",
   href: "/blog/how-to-build-a-game-in-ue-5-8-with-modern-rust-blockchain-for-digital-economy",
@@ -113,6 +124,7 @@ export const belugaPost: Post = {
 };
 
 export const posts: Post[] = [
+  web3GamingPost,
   ue58Post,
   modernNftsPost,
   featuredPost,

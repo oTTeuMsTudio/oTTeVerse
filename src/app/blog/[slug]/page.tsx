@@ -42,6 +42,10 @@ import {
   sections as modernNftsSections,
 } from "@/lib/modern-nfts";
 import {
+  lead as web3GamingLead,
+  sections as web3GamingSections,
+} from "@/lib/web3-gaming-reset";
+import {
   belugaPost,
   blockStmSuiPost,
   featuredPost,
@@ -54,6 +58,7 @@ import {
   posts,
   schedulerPost,
   ue58Post,
+  web3GamingPost,
 } from "@/lib/posts";
 
 const content = {
@@ -81,6 +86,10 @@ const content = {
   [modernNftsPost.slug]: {
     lead: modernNftsLead,
     sections: modernNftsSections,
+  },
+  [web3GamingPost.slug]: {
+    lead: web3GamingLead,
+    sections: web3GamingSections,
   },
 };
 
