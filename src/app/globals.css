@@ -29,3 +29,64 @@ body {
   background: #00a8e8;
   color: #ffffff;
 }
+
+.home-stage-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0c7eb4 url("/home-bg-poster.jpg") center bottom / cover no-repeat;
+}
+
+.home-stage-bg * {
+  pointer-events: none;
+}
+
+.home-bg-video {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  animation: home-bg-drift 18s ease-in-out infinite;
+}
+
+.home-banner-lockup {
+  animation: home-banner-float 5.2s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 10px rgba(190, 255, 70, 0.95))
+    drop-shadow(0 0 28px rgba(110, 220, 40, 0.7));
+}
+
+@keyframes home-banner-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes home-bg-drift {
+  0%,
+  100% {
+    transform: scale(1.04);
+  }
+  50% {
+    transform: scale(1.09) translateY(-1.5%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-bg-video,
+  .home-banner-lockup {
+    animation: none;
+  }
+
+  .home-bg-video {
+    display: none;
+  }
+}
