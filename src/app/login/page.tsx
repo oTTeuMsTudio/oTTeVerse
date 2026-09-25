@@ -18,18 +18,20 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main id="main">
-      <div className="mx-auto w-full max-w-3xl px-5 py-10 pb-16">
-        <span className="inline-flex size-12 items-center justify-center rounded-full bg-button text-white">
-          <ProfileIcon className="size-6" />
-        </span>
-        <h1 className="mt-5 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-          Log in
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-muted">
-          Sign in to your oTTeVerse account.
-        </p>
-        <LoginForm />
+    <main id="main" className="bg-white">
+      <div className="mx-auto w-full max-w-md px-4 py-16">
+        <div className="rounded-2xl border border-line bg-white p-6 shadow-[0_8px_24px_rgba(4,17,29,0.08)] sm:p-8">
+          <span className="inline-flex size-12 items-center justify-center rounded-xl bg-button text-white">
+            <ProfileIcon className="size-6" />
+          </span>
+          <h1 className="mt-5 text-3xl font-semibold tracking-tight text-foreground">
+            Log in
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-muted">
+            Sign in to your oTTeVerse account.
+          </p>
+          <LoginForm />
+        </div>
       </div>
     </main>
   );

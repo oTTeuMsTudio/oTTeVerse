@@ -12,8 +12,8 @@ const CALLOUT: Record<
   { wrap: string; kicker: string; label: string }
 > = {
   info: {
-    wrap: "border-[#00a8e8] bg-[#e8f7fc]",
-    kicker: "text-[#0070a1]",
+    wrap: "border-button bg-[#eef5fc]",
+    kicker: "text-button",
     label: "Note",
   },
   tip: {
@@ -52,7 +52,7 @@ function RichText({ text }: { text: string }) {
           return (
             <code
               key={index}
-              className="rounded bg-[#eef6fa] px-1.5 py-0.5 font-mono text-[0.9em] text-[#0070a1]"
+              className="rounded bg-[#eef5fc] px-1.5 py-0.5 font-mono text-[0.9em] text-button"
             >
               {part.slice(1, -1)}
             </code>
@@ -64,7 +64,7 @@ function RichText({ text }: { text: string }) {
             const href = match[2];
             const label = match[1];
             const className =
-              "font-medium text-button underline decoration-[#00a8e8]/40 underline-offset-4 hover:text-button-hover";
+              "font-medium text-button underline decoration-button/40 underline-offset-4 hover:text-button-hover";
             if (href.startsWith("/")) {
               return (
                 <Link key={index} href={href} className={className}>
@@ -195,7 +195,7 @@ function Blocks({ blocks }: { blocks: ArticleBlock[] }) {
           return (
             <figure key={`code-${index}`} className="mt-5 overflow-hidden rounded-lg border border-line">
               {block.label ? (
-                <figcaption className="border-b border-line bg-[#0070a1] px-4 py-1.5 font-mono text-xs font-medium tracking-wide text-white">
+                <figcaption className="border-b border-line bg-button px-4 py-1.5 font-mono text-xs font-medium tracking-wide text-white">
                   {block.label}
                 </figcaption>
               ) : null}
@@ -229,7 +229,7 @@ function Blocks({ blocks }: { blocks: ArticleBlock[] }) {
             <nav
               key={`toc-${index}`}
               aria-label="On this page"
-              className="mt-6 rounded-lg border border-[#bfe6f5] bg-[#f3fafd] px-5 py-4"
+              className="mt-6 rounded-xl border border-[#c5ddf5] bg-[#f4f8fd] px-5 py-4"
             >
               <p className="text-[11px] font-semibold tracking-[0.14em] text-button uppercase">
                 On this page
@@ -326,7 +326,7 @@ export function PostArticle({
       <div
         className={
           isTutorial
-            ? "mt-6 space-y-4 rounded-lg border-l-4 border-cyan bg-[#f3fafd] px-5 py-4 text-base leading-7 text-foreground"
+            ? "mt-6 space-y-4 rounded-xl border border-line bg-[#fbfdff] px-5 py-4 text-base leading-7 text-foreground"
             : "mt-6 space-y-4 text-base leading-7 text-foreground"
         }
       >

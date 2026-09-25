@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { NftStore } from "@/components/nft-store";
@@ -22,36 +23,44 @@ export const metadata: Metadata = {
 
 export default function NftsPage() {
   return (
-    <main id="main" className="relative flex-1 text-white">
-      <div className="ue58-page-bg" aria-hidden="true" />
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <p className="text-[11px] font-semibold tracking-[0.14em] text-cyan uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">
-          Database
-        </p>
-        <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
-          <h1 className="text-3xl font-semibold tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] md:text-4xl">
-            {heading}
-          </h1>
-          <p className="rounded-full border border-[#1f2937] bg-[#0d1721] px-3 py-1 text-xs font-semibold tracking-wide text-[#d5e2ee]">
-            OTTE
-          </p>
+    <main id="main" className="flex-1 bg-white text-foreground">
+      <div
+        className="h-36 bg-[#04111d] bg-cover bg-center sm:h-52"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(4,17,29,0.15), rgba(4,17,29,0.35)), url(/ue58-bg.jpg)",
+        }}
+        role="img"
+        aria-label="oTTeVerse game world"
+      />
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-end gap-4">
+          <Image
+            src="/logotip.jpg"
+            alt=""
+            width={88}
+            height={88}
+            className="-mt-10 size-[88px] rounded-2xl border-4 border-white object-cover shadow-[0_0_8px_rgba(4,17,29,0.12)]"
+          />
+          <div className="min-w-0 pt-3 pb-1">
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+              {heading}
+            </h1>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-muted">
+              {summary}
+            </p>
+          </div>
         </div>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-[#d5e2ee] drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">
-          {summary} Each listing is one object: a single owner, a version, and
-          a capability set — the same model as the tutorial.
-        </p>
-        <p className="mt-3">
+        <p className="mt-4">
           <Link
             href="/blog/what-are-modern-nfts-and-how-to-use-them"
-            className="text-sm font-semibold text-cyan underline-offset-4 drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] hover:underline"
+            className="text-sm font-semibold text-button hover:text-button-hover"
           >
             The Future of NFTs — Market Insights & Use Cases
           </Link>
         </p>
         <Suspense
-          fallback={
-            <p className="mt-8 text-sm text-[#d5e2ee]">Loading the catalog…</p>
-          }
+          fallback={<p className="mt-8 text-sm text-muted">Loading the catalog…</p>}
         >
           <NftStore />
         </Suspense>

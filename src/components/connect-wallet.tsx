@@ -15,7 +15,10 @@ import {
 const INSTALL_URL = "https://metamask.io/download";
 
 const buttonClassName =
-  "inline-flex h-8 shrink-0 items-center gap-1.5 rounded-[2px] bg-gradient-to-b from-[#75b022] to-[#588a1b] px-2.5 text-[13px] font-normal text-[#d2efa9] shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] hover:from-[#8bc53f] hover:to-[#6aa621] hover:text-white disabled:opacity-70";
+  "inline-flex h-11 shrink-0 items-center gap-2 rounded-xl bg-button px-3.5 text-sm font-semibold text-white hover:bg-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button disabled:opacity-70 sm:px-4";
+
+const connectedClassName =
+  "inline-flex h-11 shrink-0 items-center gap-2 rounded-xl border border-line bg-white px-3.5 text-sm font-semibold text-foreground hover:bg-[#f6f7f8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button disabled:opacity-70";
 
 function WalletIcon() {
   return (
@@ -134,7 +137,7 @@ export function ConnectWallet() {
           void (account ? disconnect() : connect());
         }}
         disabled={busy}
-        className={buttonClassName}
+        className={account ? connectedClassName : buttonClassName}
         title={
           account
             ? "Disconnect wallet"

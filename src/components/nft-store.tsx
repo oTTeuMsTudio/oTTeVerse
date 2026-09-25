@@ -57,15 +57,15 @@ type SortKey = (typeof sorts)[number]["id"];
 type ViewMode = "cards" | "table";
 
 const rarityClass: Record<NftRarity, string> = {
-  Common: "text-[#d5e2ee]",
-  Uncommon: "text-[#6ee7b7]",
-  Rare: "text-[#7dd3fc]",
-  Epic: "text-[#d8b4fe]",
-  Legendary: "text-[#fcd34d]",
+  Common: "text-[#707a83]",
+  Uncommon: "text-[#0d8a4e]",
+  Rare: "text-[#2081e2]",
+  Epic: "text-[#7a3ff2]",
+  Legendary: "text-[#b8860b]",
 };
 
 const fieldClass =
-  "h-11 rounded-xl border border-[#1f2937] bg-[#0d1721] px-3 text-sm text-white outline-none focus:border-cyan";
+  "h-12 rounded-xl border border-line bg-white px-3 text-sm text-foreground outline-none focus:border-button focus:shadow-[0_0_0_3px_rgba(32,129,226,0.18)]";
 
 function isNftCategory(value: string | null): value is NftCategory {
   return value === "Land" || value === "Item" || value === "Wearable";
@@ -298,26 +298,26 @@ function NftStoreScreen({
   }
 
   return (
-    <div className="mt-8 [color-scheme:dark]">
+    <div className="mt-8 pb-12">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold tracking-tight">
-            {selectedGame ? selectedGame.name : "All games"}
+            {selectedGame ? selectedGame.name : "All collections"}
           </h2>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-[#b7c6d6]">
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-muted">
             {selectedGame
               ? selectedGame.summary
-              : `${nftGames.length} games. ${nftListings.length} listings. Prices in ${nftCurrency}.`}
+              : `${nftGames.length} collections. ${nftListings.length} items. Prices in ${nftCurrency}.`}
           </p>
         </div>
-        <p className="text-sm text-[#b7c6d6]">
+        <p className="text-sm text-muted">
           {account
             ? `Collecting as ${shortenAddress(account)}.`
             : "Connect Wallet in the header, or press Buy and the page will ask for it."}
         </p>
       </div>
 
-      <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-[#1f2937] bg-[#1f2937] sm:grid-cols-4">
+      <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
         <Stat label="Floor" value={formatOtte(stats.floor)} />
         <Stat label="NFTs" value={String(stats.items)} />
         <Stat label="Listed value" value={formatOtte(stats.listedValue)} />
@@ -343,29 +343,29 @@ function NftStoreScreen({
               onClick={() => {
                 openGame(game.id);
               }}
-              className={`w-[210px] shrink-0 overflow-hidden rounded-xl border bg-[#0d1721] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+              className={`w-[220px] shrink-0 overflow-hidden rounded-xl border bg-white text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button ${
                 selected
-                  ? "border-cyan ring-2 ring-cyan"
-                  : "border-[#1f2937] hover:border-[#3d5168]"
+                  ? "border-button ring-2 ring-button"
+                  : "border-line hover:shadow-[0_0_8px_rgba(4,17,29,0.18)]"
               }`}
             >
               <div className="relative h-16">
                 <GameBanner gameId={game.id} />
-                <div className="absolute -bottom-4 left-3 size-10 overflow-hidden rounded-lg border-2 border-[#0d1721]">
+                <div className="absolute -bottom-4 left-3 size-10 overflow-hidden rounded-lg border-2 border-white">
                   <GameMark gameId={game.id} />
                 </div>
               </div>
               <div className="px-3 pt-6 pb-3">
                 <p className="truncate text-sm font-semibold">{game.name}</p>
-                <p className="mt-2 flex items-center justify-between text-xs text-[#b7c6d6]">
+                <p className="mt-2 flex items-center justify-between text-xs text-muted">
                   <span>Floor</span>
-                  <span className="font-semibold text-white tabular-nums">
+                  <span className="font-semibold text-foreground tabular-nums">
                     {formatOtte(gameStats.floor)}
                   </span>
                 </p>
-                <p className="mt-1 flex items-center justify-between text-xs text-[#b7c6d6]">
-                  <span>NFTs</span>
-                  <span className="tabular-nums text-white">
+                <p className="mt-1 flex items-center justify-between text-xs text-muted">
+                  <span>Items</span>
+                  <span className="tabular-nums text-foreground">
                     {gameStats.items}
                   </span>
                 </p>
@@ -384,7 +384,7 @@ function NftStoreScreen({
             onChange={(event) => {
               setQuery(event.target.value);
             }}
-            placeholder="Search items, games, or rarities"
+            placeholder="Search items, collections, and accounts"
             autoComplete="off"
             className={`${fieldClass} w-full px-4`}
           />
@@ -433,7 +433,7 @@ function NftStoreScreen({
             onClick={() => {
               setFiltersOpen((open) => !open);
             }}
-            className="h-11 rounded-xl border border-[#1f2937] bg-[#0d1721] px-3 text-sm font-semibold text-white lg:hidden"
+            className="h-12 rounded-xl border border-line bg-white px-3 text-sm font-semibold text-foreground lg:hidden"
           >
             Filters{activeFilters > 0 ? ` (${activeFilters})` : ""}
           </button>
@@ -467,7 +467,7 @@ function NftStoreScreen({
       <div className="mt-4 lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:items-start lg:gap-6">
         <aside
           id="nft-filters"
-          className={`rounded-xl border border-[#1f2937] bg-[#0d1721] p-4 lg:sticky lg:top-28 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto ${
+          className={`rounded-xl border border-line bg-white p-4 lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto ${
             filtersOpen ? "block" : "hidden lg:block"
           }`}
         >
@@ -496,7 +496,7 @@ function NftStoreScreen({
             {nftRarities.map((entry) => (
               <label
                 key={entry}
-                className="flex items-center gap-2 text-sm text-[#d5e2ee]"
+                className="flex items-center gap-2 text-sm text-foreground"
               >
                 <input
                   type="checkbox"
@@ -508,7 +508,7 @@ function NftStoreScreen({
                         : [...current, entry],
                     );
                   }}
-                  className="size-4 accent-cyan"
+                  className="size-4 accent-button"
                 />
                 <span className={rarityClass[entry]}>{entry}</span>
               </label>
@@ -544,7 +544,7 @@ function NftStoreScreen({
             <button
               type="button"
               onClick={clearFilters}
-              className="mt-2 text-sm font-semibold text-cyan hover:underline"
+              className="mt-2 text-sm font-semibold text-button hover:underline"
             >
               Clear filters
             </button>
@@ -553,34 +553,34 @@ function NftStoreScreen({
 
         <div>
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm text-[#b7c6d6]">
+            <p className="text-sm text-muted">
               {sorted.length} {sorted.length === 1 ? "NFT" : "NFTs"}
             </p>
             {activeFilters > 0 || needle.length > 0 ? (
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-sm font-semibold text-cyan hover:underline"
+                className="text-sm font-semibold text-button hover:underline"
               >
                 Clear
               </button>
             ) : null}
           </div>
           {notice !== null ? (
-            <p className="mb-3 text-sm font-medium text-white" role="status">
+            <p className="mb-3 text-sm font-medium text-foreground" role="status">
               {notice}
             </p>
           ) : null}
           {sorted.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-[#1f2937] px-6 py-16 text-center">
-              <p className="text-base font-semibold">No NFTs match</p>
-              <p className="mt-2 text-sm text-[#b7c6d6]">
+            <div className="rounded-xl border border-dashed border-line px-6 py-16 text-center">
+              <p className="text-base font-semibold">No items match</p>
+              <p className="mt-2 text-sm text-muted">
                 Try another game, category, or search.
               </p>
               <button
                 type="button"
                 onClick={clearFilters}
-                className="mt-4 rounded-lg bg-button px-4 py-2 text-sm font-semibold text-white hover:bg-button-hover"
+                className="mt-4 rounded-xl bg-button px-4 py-2 text-sm font-semibold text-white hover:bg-button-hover"
               >
                 Clear filters
               </button>
@@ -609,7 +609,7 @@ function NftStoreScreen({
               onOpenGame={openGame}
             />
           )}
-          <p className="mt-6 max-w-2xl text-sm leading-6 text-[#b7c6d6]">
+          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">
             Prices and last sales are catalog records. Buy assigns the listing
             to your connected address for this visit. On the Rust chain, that
             same step is a fill of one shared listing: the object owner becomes
@@ -654,8 +654,8 @@ function compareListings(sort: Exclude<SortKey, "featured">) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-[#0d1721] px-4 py-3">
-      <dt className="text-[11px] font-semibold tracking-[0.14em] text-[#a9bdd1] uppercase">
+    <div className="bg-white px-4 py-3">
+      <dt className="text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">
         {label}
       </dt>
       <dd className="mt-1 text-lg font-semibold tabular-nums">{value}</dd>
@@ -671,8 +671,8 @@ function FilterGroup({
   children: ReactNode;
 }) {
   return (
-    <fieldset className="mb-4 border-b border-[#1f2937] pb-4">
-      <legend className="mb-3 text-[11px] font-semibold tracking-[0.14em] text-[#a9bdd1] uppercase">
+    <fieldset className="mb-4 border-b border-line pb-4 last:border-b-0">
+      <legend className="mb-3 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">
         {title}
       </legend>
       <div className="grid gap-2">{children}</div>
@@ -692,13 +692,13 @@ function RadioRow({
   onChange: () => void;
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm text-[#d5e2ee]">
+    <label className="flex items-center gap-2 text-sm text-foreground">
       <input
         type="radio"
         name={name}
         checked={checked}
         onChange={onChange}
-        className="size-4 accent-cyan"
+        className="size-4 accent-button"
       />
       {label}
     </label>
@@ -719,10 +719,10 @@ function CategoryPill({
       type="button"
       aria-pressed={selected}
       onClick={onClick}
-      className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+      className={`shrink-0 rounded-xl px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button ${
         selected
           ? "bg-button text-white"
-          : "border border-[#1f2937] bg-[#0d1721] text-[#d5e2ee] hover:border-cyan"
+          : "border border-line bg-white text-foreground hover:bg-[#f6f7f8]"
       }`}
     >
       {label}
@@ -747,8 +747,8 @@ function ViewButton({
       type="button"
       aria-pressed={pressed}
       onClick={onClick}
-      className={`h-11 border border-[#1f2937] px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${radius} ${
-        pressed ? "bg-button text-white" : "bg-[#0d1721] text-[#d5e2ee]"
+      className={`h-12 border border-line px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button ${radius} ${
+        pressed ? "bg-button text-white" : "bg-white text-foreground hover:bg-[#f6f7f8]"
       }`}
     >
       {children}
@@ -783,7 +783,7 @@ function BuyButton({
           ? `${item.name} collected`
           : `Buy ${item.name} for ${item.price} ${nftCurrency}`
       }
-      className={`rounded-lg bg-button font-semibold text-white hover:bg-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:opacity-70 ${
+      className={`rounded-xl bg-button font-semibold text-white hover:bg-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button disabled:opacity-70 ${
         wide ? "mt-3 w-full px-3 py-2 text-sm" : "px-3 py-1.5 text-sm"
       }`}
     >
@@ -809,11 +809,11 @@ function ItemCard({
 }) {
   const game = gameById.get(item.gameId);
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-[#1f2937] bg-[#0d1721] motion-safe:transition motion-safe:hover:-translate-y-0.5 hover:border-cyan">
-      <div className="relative aspect-square bg-[#061018]">
+    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white hover:shadow-[0_0_8px_rgba(4,17,29,0.18)]">
+      <div className="relative aspect-square bg-[#f6f7f8]">
         <NftArtwork id={item.id} />
         <span
-          className={`absolute top-2 left-2 rounded-md bg-black/60 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase ${rarityClass[item.rarity]}`}
+          className={`absolute top-2 left-2 rounded-md bg-white/95 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase ${rarityClass[item.rarity]}`}
         >
           {item.rarity}
         </span>
@@ -830,21 +830,21 @@ function ItemCard({
             onClick={() => {
               onOpenGame(item.gameId);
             }}
-            className="max-w-full truncate text-left text-xs font-medium text-[#b7c6d6] hover:text-white"
+            className="max-w-full truncate text-left text-xs font-medium text-muted hover:text-button"
           >
             {game?.name}
           </button>
-          <span className="text-xs text-[#b7c6d6]">· {item.category}</span>
+          <span className="text-xs text-muted">· {item.category}</span>
         </div>
-        <h3 className="mt-1 text-sm font-semibold tracking-tight text-white">
+        <h3 className="mt-1 text-sm font-semibold tracking-tight text-foreground">
           {item.name}
         </h3>
-        <p className="mt-1 flex-1 text-xs leading-5 text-[#b7c6d6]">
+        <p className="mt-1 flex-1 text-xs leading-5 text-muted">
           {item.summary}
         </p>
         <div className="mt-3 flex items-end justify-between gap-2">
           <div>
-            <p className="text-[10px] font-semibold tracking-wide text-[#a9bdd1] uppercase">
+            <p className="text-[10px] font-semibold tracking-wide text-muted uppercase">
               Price
             </p>
             <p className="text-sm font-semibold tabular-nums">
@@ -852,10 +852,10 @@ function ItemCard({
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] font-semibold tracking-wide text-[#a9bdd1] uppercase">
+            <p className="text-[10px] font-semibold tracking-wide text-muted uppercase">
               Last sale
             </p>
-            <p className="text-sm tabular-nums text-[#d5e2ee]">{item.lastSale}</p>
+            <p className="text-sm tabular-nums text-[#353840]">{item.lastSale}</p>
           </div>
         </div>
         <BuyButton
@@ -885,10 +885,10 @@ function ItemTable({
   onOpenGame: (gameId: string) => void;
 }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-[#1f2937]">
+    <div className="overflow-x-auto rounded-xl border border-line">
       <table className="w-full min-w-[880px] border-collapse text-left text-sm">
         <caption className="sr-only">Game NFT listings</caption>
-        <thead className="bg-[#0d1721] text-[11px] tracking-[0.14em] text-[#a9bdd1] uppercase">
+        <thead className="bg-[#f6f7f8] text-[11px] tracking-[0.14em] text-muted uppercase">
           <tr>
             <th scope="col" className="px-3 py-3 font-semibold">
               Item
@@ -920,15 +920,15 @@ function ItemTable({
           {items.map((item) => {
             const game = gameById.get(item.gameId);
             return (
-              <tr key={item.id} className="border-t border-[#1f2937]">
-                <th scope="row" className="px-3 py-2 font-semibold text-white">
+              <tr key={item.id} className="border-t border-line hover:bg-[#fbfdff]">
+                <th scope="row" className="px-3 py-2 font-semibold text-foreground">
                   <span className="flex items-center gap-3">
                     <span className="size-12 shrink-0 overflow-hidden rounded-md">
                       <NftArtwork id={item.id} />
                     </span>
                     <span>
                       <span className="block">{item.name}</span>
-                      <span className="mt-0.5 block text-xs font-normal text-[#b7c6d6]">
+                      <span className="mt-0.5 block text-xs font-normal text-muted">
                         {item.summary}
                       </span>
                     </span>
@@ -940,7 +940,7 @@ function ItemTable({
                     onClick={() => {
                       onOpenGame(item.gameId);
                     }}
-                    className="inline-flex items-center gap-1.5 text-left text-[#d5e2ee] hover:text-white"
+                    className="inline-flex items-center gap-1.5 text-left text-[#353840] hover:text-button"
                   >
                     <span
                       aria-hidden="true"
@@ -950,17 +950,17 @@ function ItemTable({
                     {game?.name}
                   </button>
                 </td>
-                <td className="px-3 py-2 text-[#d5e2ee]">{item.category}</td>
+                <td className="px-3 py-2 text-[#353840]">{item.category}</td>
                 <td className={`px-3 py-2 font-medium ${rarityClass[item.rarity]}`}>
                   {item.rarity}
                 </td>
                 <td className="px-3 py-2 text-right font-semibold tabular-nums">
                   {item.price} {nftCurrency}
                 </td>
-                <td className="px-3 py-2 text-right tabular-nums text-[#d5e2ee]">
+                <td className="px-3 py-2 text-right tabular-nums text-[#353840]">
                   {item.lastSale}
                 </td>
-                <td className="px-3 py-2 text-right tabular-nums text-[#d5e2ee]">
+                <td className="px-3 py-2 text-right tabular-nums text-[#353840]">
                   {item.supply.toLocaleString("en-US")}
                 </td>
                 <td className="px-3 py-2 text-right">

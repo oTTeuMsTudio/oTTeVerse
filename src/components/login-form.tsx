@@ -21,7 +21,7 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-8 max-w-sm" noValidate>
+    <form onSubmit={onSubmit} className="mt-8" noValidate>
       <label
         htmlFor="email"
         className="block text-sm font-medium text-foreground"
@@ -40,11 +40,11 @@ export function LoginForm() {
           setEmail(event.target.value);
           setMessage(null);
         }}
-        className="mt-2 w-full rounded-md border border-line bg-white px-3 py-2 text-sm text-foreground outline-none focus:border-cyan"
+        className="mt-2 h-12 w-full rounded-xl border border-line bg-white px-3 text-sm text-foreground outline-none focus:border-button focus:shadow-[0_0_0_3px_rgba(32,129,226,0.18)]"
       />
       <button
         type="submit"
-        className="mt-4 w-full rounded-md bg-button px-5 py-2.5 text-sm font-semibold text-white hover:bg-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+        className="mt-4 h-12 w-full rounded-xl bg-button px-5 text-sm font-semibold text-white hover:bg-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button"
       >
         Log in
       </button>

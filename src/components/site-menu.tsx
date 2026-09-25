@@ -48,14 +48,6 @@ const postLinks: MenuLink[] = posts.map((post) => ({
   hint: post.kicker ?? post.dateLabel,
 }));
 
-const tutorialLinks: MenuLink[] = posts
-  .filter((post) => post.kicker === "Tutorial")
-  .map((post) => ({
-    href: post.href,
-    label: post.title,
-    hint: "Tutorial",
-  }));
-
 const categoryLinks: MenuLink[] = nftCategories.map((category) => ({
   href: `/nfts?category=${category}`,
   label: category,
@@ -67,10 +59,10 @@ const gameLinks: MenuLink[] = nftGames.map((game) => ({
 }));
 
 const panelClass =
-  "absolute top-full z-50 min-w-[240px] border border-black bg-[#1b2838] py-1.5 text-[13px] text-[#c6d4df] shadow-[0_12px_28px_rgba(0,0,0,0.55)]";
+  "absolute top-[calc(100%+8px)] z-50 min-w-[240px] rounded-xl border border-line bg-white py-1.5 text-sm text-foreground shadow-[0_8px_24px_rgba(4,17,29,0.12)]";
 
 const panelLinkClass =
-  "block px-3 py-1.5 leading-snug text-[#c6d4df] hover:bg-[#2a475e] hover:text-white focus-visible:bg-[#2a475e] focus-visible:text-white focus-visible:outline-none";
+  "block rounded-lg px-3 py-2 leading-snug text-foreground hover:bg-[#f6f7f8] focus-visible:bg-[#f6f7f8] focus-visible:outline-none";
 
 function prefersHover() {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -146,7 +138,7 @@ function Chevron({ open }: { open: boolean }) {
 function MenuSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="py-1">
-      <p className="px-3 pt-1 pb-1 text-[11px] font-semibold tracking-wide text-[#67c1f5] uppercase">
+      <p className="px-3 pt-1.5 pb-1 text-[11px] font-semibold tracking-wide text-muted uppercase">
         {title}
       </p>
       {children}
@@ -168,64 +160,12 @@ function MenuLinks({
           <Link href={item.href} className={panelLinkClass} onClick={() => onPick(item)}>
             <span className="line-clamp-2">{item.label}</span>
             {item.hint ? (
-              <span className="mt-0.5 block text-[11px] text-[#8f98a0]">{item.hint}</span>
+              <span className="mt-0.5 block text-[11px] text-muted">{item.hint}</span>
             ) : null}
           </Link>
         </li>
       ))}
     </ul>
-  );
-}
-
-function TabFlyout({
-  id,
-  label,
-  current,
-  open,
-  align = "left",
-  wide = false,
-  onEnter,
-  onLeave,
-  onToggle,
-  children,
-}: {
-  id: string;
-  label: string;
-  current?: boolean;
-  open: boolean;
-  align?: "left" | "right";
-  wide?: boolean;
-  onEnter: (id: string) => void;
-  onLeave: () => void;
-  onToggle: (id: string, detail: number) => void;
-  children: ReactNode;
-}) {
-  return (
-    <div className="relative" onMouseEnter={() => onEnter(id)} onMouseLeave={onLeave}>
-      <button
-        type="button"
-        className={`inline-flex h-9 items-center gap-1.5 px-3 text-[13px] hover:bg-black/25 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#67c1f5] ${
-          open || current ? "bg-black/25 text-white" : "text-[#e5eef5]"
-        }`}
-        aria-expanded={open}
-        aria-controls={`${id}-menu`}
-        aria-haspopup="true"
-        onClick={(event) => onToggle(id, event.detail)}
-      >
-        {label}
-        <Chevron open={open} />
-      </button>
-      {open ? (
-        <div
-          id={`${id}-menu`}
-          className={`${panelClass} max-h-[70vh] overflow-y-auto ${
-            align === "right" ? "right-0" : "left-0"
-          } ${wide ? "w-[380px]" : ""}`}
-        >
-          {children}
-        </div>
-      ) : null}
-    </div>
   );
 }
 
@@ -261,8 +201,8 @@ function SupernavItem({
       <Link
         href={href}
         aria-current={current ? "page" : undefined}
-        className={`px-2 py-1 text-[14px] tracking-wide uppercase focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#67c1f5] ${
-          current ? "text-white" : "text-[#b8b6b4] hover:text-white"
+        className={`rounded-xl px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-button ${
+          current ? "text-button" : "text-foreground hover:bg-[#f6f7f8]"
         }`}
         onClick={() => onPick({ href, label })}
       >
@@ -270,7 +210,7 @@ function SupernavItem({
       </Link>
       <button
         type="button"
-        className="inline-flex size-6 items-center justify-center text-[#8f98a0] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#67c1f5]"
+        className="inline-flex size-8 items-center justify-center rounded-lg text-muted hover:bg-[#f6f7f8] hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-button"
         aria-expanded={open}
         aria-controls={`${id}-menu`}
         aria-label={`${label} menu`}
@@ -302,7 +242,7 @@ function SearchPanel({
   if (needle.length > 0) {
     if (hits.length === 0) {
       return (
-        <p className="px-3 py-3 text-[13px] text-[#8f98a0]">
+        <p className="px-3 py-3 text-sm text-muted">
           No matches. Press Enter to search the NFT catalog.
         </p>
       );
@@ -348,17 +288,17 @@ function SearchPanel({
 function MobilePanel({ onPick }: { onPick: (item: MenuLink) => void }) {
   return (
     <div
-      id="steam-mobile-menu"
-      className="max-h-[70vh] overflow-y-auto border-t border-black bg-[#1b2838] lg:hidden"
+      id="site-mobile-menu"
+      className="max-h-[70vh] overflow-y-auto border-t border-line bg-white lg:hidden"
     >
       <nav aria-label="Menu" className="px-2 py-2">
-        <MenuSection title="Store">
+        <MenuSection title="Pages">
           <MenuLinks items={pageLinks} onPick={onPick} />
         </MenuSection>
-        <MenuSection title="News">
+        <MenuSection title="Blog">
           <MenuLinks items={postLinks} onPick={onPick} />
         </MenuSection>
-        <MenuSection title="Categories">
+        <MenuSection title="Explore">
           <MenuLinks items={categoryLinks} onPick={onPick} />
           <MenuLinks items={gameLinks} onPick={onPick} />
         </MenuSection>
@@ -376,7 +316,6 @@ export function SiteMenu() {
   const [mobilePath, setMobilePath] = useState<string | null>(null);
   const [searchPath, setSearchPath] = useState<string | null>(null);
   const [queryState, setQueryState] = useState({ text: "", path: "" });
-  const [storeVisible, setStoreVisible] = useState(true);
   const recentRaw = useSyncExternalStore(
     subscribeRecent,
     recentSnapshot,
@@ -455,25 +394,6 @@ export function SiteMenu() {
   }, []);
 
   useEffect(() => {
-    let last = window.scrollY;
-    function onScroll() {
-      const y = window.scrollY;
-      if (y <= 4) {
-        setStoreVisible(true);
-      } else if (y > last + 8) {
-        setStoreVisible(false);
-        setOpenState(null);
-        setSearchPath(null);
-      } else if (last - y > 8) {
-        setStoreVisible(true);
-      }
-      last = y;
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     return () => {
       if (closeTimer.current !== null) {
         window.clearTimeout(closeTimer.current);
@@ -541,31 +461,27 @@ export function SiteMenu() {
   function onSearchFocus() {
     setSearchPath(pathname);
     setOpenState(null);
-    setStoreVisible(true);
   }
 
   function setQuery(text: string) {
     setQueryState({ text, path: pathname });
   }
 
-  const onHome = pathname === "/";
   const onBlog = pathname === "/blog" || pathname.startsWith("/blog/");
   const onNfts = pathname === "/nfts" || pathname.startsWith("/nfts/");
-  const showStore = storeVisible || mobileOpen || searchOpen;
 
   return (
-    <div ref={rootRef} className="steam-header">
-      <div className="flex h-14 items-center gap-1 px-3 sm:gap-2 sm:px-4 lg:px-6">
+    <div ref={rootRef} className="bg-white text-foreground">
+      <div className="mx-auto flex h-[72px] w-full max-w-[1600px] items-center gap-2 px-3 sm:gap-3 sm:px-4 lg:px-6">
         <button
           type="button"
-          className="inline-flex size-9 items-center justify-center text-[#c6d4df] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#67c1f5] lg:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-xl text-foreground hover:bg-[#f6f7f8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-button lg:hidden"
           aria-expanded={mobileOpen}
-          aria-controls="steam-mobile-menu"
+          aria-controls="site-mobile-menu"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => {
             setMobilePath((current) => (current === pathname ? null : pathname));
             setOpenState(null);
-            setStoreVisible(true);
           }}
         >
           <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5" fill="currentColor">
@@ -578,7 +494,7 @@ export function SiteMenu() {
         </button>
         <Link
           href="/"
-          className="flex min-w-0 items-center gap-2.5 text-white"
+          className="flex min-w-0 items-center gap-2.5 text-foreground"
           aria-label="oTTeVerse home"
           onClick={() => remember({ href: "/", label: "Home" })}
         >
@@ -587,26 +503,46 @@ export function SiteMenu() {
             alt=""
             width={36}
             height={36}
-            className="size-9 rounded-sm object-cover"
+            className="size-9 rounded-xl object-cover"
             priority
           />
-          <span className="hidden truncate text-[18px] font-semibold tracking-tight sm:inline">
+          <span className="hidden truncate text-[20px] font-semibold tracking-tight sm:inline">
             oTTeVerse
           </span>
         </Link>
-        <nav aria-label="Primary" className="ml-3 hidden items-center lg:flex">
+        <SearchBox
+          id="store-search"
+          className="relative mx-2 hidden min-w-0 flex-1 lg:block"
+          query={query}
+          searchOpen={searchOpen}
+          hits={hits}
+          recent={recent}
+          onQuery={(text) => {
+            setQuery(text);
+            setSearchPath(pathname);
+          }}
+          onFocus={onSearchFocus}
+          onSubmit={onSearch}
+          onPick={remember}
+        />
+        <nav aria-label="Primary" className="hidden items-center lg:flex">
           <SupernavItem
-            id="store"
-            label="Store"
-            href="/"
-            current={onHome}
-            open={open === "store"}
+            id="nfts"
+            label="Explore"
+            href="/nfts"
+            current={onNfts}
+            open={open === "nfts"}
             onEnter={onEnter}
             onLeave={onLeave}
             onToggle={onToggle}
             onPick={remember}
           >
-            <MenuLinks items={pageLinks} onPick={remember} />
+            <MenuSection title="Type">
+              <MenuLinks items={categoryLinks} onPick={remember} />
+            </MenuSection>
+            <MenuSection title="Collections">
+              <MenuLinks items={gameLinks} onPick={remember} />
+            </MenuSection>
           </SupernavItem>
           <SupernavItem
             id="blog"
@@ -621,155 +557,96 @@ export function SiteMenu() {
           >
             <MenuLinks items={postLinks} onPick={remember} />
           </SupernavItem>
-          <SupernavItem
-            id="nfts"
-            label="NFTs"
-            href="/nfts"
-            current={onNfts}
-            open={open === "nfts"}
-            onEnter={onEnter}
-            onLeave={onLeave}
-            onToggle={onToggle}
-            onPick={remember}
-          >
-            <MenuSection title="Type">
-              <MenuLinks items={categoryLinks} onPick={remember} />
-            </MenuSection>
-            <MenuSection title="Games">
-              <MenuLinks items={gameLinks} onPick={remember} />
-            </MenuSection>
-          </SupernavItem>
         </nav>
-        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           <ConnectWallet />
           <LogInButton />
         </div>
       </div>
-      {mobileOpen ? <MobilePanel onPick={remember} /> : null}
-      <div className="steam-storebar" hidden={showStore ? undefined : true}>
-        <div className="flex items-center gap-1 px-3 py-2 lg:px-5">
-          <div className="hidden flex-1 items-center lg:flex">
-            <TabFlyout
-              id="browse"
-              label="Browse"
-              open={open === "browse"}
-              onEnter={onEnter}
-              onLeave={onLeave}
-              onToggle={onToggle}
-            >
-              <MenuLinks
-                items={pageLinks.filter((item) => item.href !== "/login")}
-                onPick={remember}
-              />
-              <MenuSection title="Tutorials">
-                <MenuLinks items={tutorialLinks} onPick={remember} />
-              </MenuSection>
-            </TabFlyout>
-            <TabFlyout
-              id="news"
-              label="News"
-              current={onBlog}
-              wide
-              open={open === "news"}
-              onEnter={onEnter}
-              onLeave={onLeave}
-              onToggle={onToggle}
-            >
-              <MenuLinks items={[{ href: "/blog", label: "All posts" }, ...postLinks]} onPick={remember} />
-            </TabFlyout>
-            <TabFlyout
-              id="categories"
-              label="Categories"
-              current={onNfts}
-              open={open === "categories"}
-              onEnter={onEnter}
-              onLeave={onLeave}
-              onToggle={onToggle}
-            >
-              <MenuSection title="Type">
-                <MenuLinks items={categoryLinks} onPick={remember} />
-              </MenuSection>
-              <MenuSection title="Games">
-                <MenuLinks items={gameLinks} onPick={remember} />
-              </MenuSection>
-            </TabFlyout>
-          </div>
-          <form
-            className="relative w-full lg:w-[min(560px,42vw)] lg:flex-none"
-            role="search"
-            onSubmit={onSearch}
-          >
-            <label htmlFor="store-search" className="sr-only">
-              Search posts and NFTs
-            </label>
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-[#d5eaf3]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="11" cy="11" r="6.5" />
-              <path d="m16 16 4 4" />
-            </svg>
-            <input
-              id="store-search"
-              role="combobox"
-              value={query}
-              onChange={(event) => {
-                setQuery(event.target.value);
-                setSearchPath(pathname);
-              }}
-              onFocus={onSearchFocus}
-              placeholder="search"
-              autoComplete="off"
-              aria-expanded={searchOpen}
-              aria-controls="store-search-panel"
-              aria-autocomplete="list"
-              className="h-9 w-full rounded-[3px] bg-[#316282] pr-3 pl-9 text-[14px] text-white placeholder:text-[#d5eaf3]/75 outline-none focus:bg-[#3d7ea3]"
-            />
-            {searchOpen ? (
-              <div
-                id="store-search-panel"
-                className={`${panelClass} right-0 left-0 max-h-[70vh] overflow-y-auto`}
-              >
-                <SearchPanel query={query} hits={hits} recent={recent} onPick={remember} />
-              </div>
-            ) : null}
-          </form>
-          <div className="hidden flex-1 items-center justify-end lg:flex">
-            <Link
-              href="/nfts"
-              aria-current={onNfts ? "page" : undefined}
-              className={`inline-flex h-9 items-center gap-2 px-3 text-[13px] hover:bg-black/25 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#67c1f5] ${
-                onNfts ? "text-white" : "text-[#e5eef5]"
-              }`}
-              onClick={() => remember({ href: "/nfts", label: "NFT catalog" })}
-            >
-              Catalog
-              <span className="text-[#67c1f5]">{nftListings.length}</span>
-            </Link>
-            <TabFlyout
-              id="more"
-              label="More"
-              align="right"
-              open={open === "more"}
-              onEnter={onEnter}
-              onLeave={onLeave}
-              onToggle={onToggle}
-            >
-              <MenuLinks
-                items={[
-                  { href: "/login", label: "Log in" },
-                  { href: "/", label: "Home" },
-                ]}
-                onPick={remember}
-              />
-            </TabFlyout>
-          </div>
-        </div>
+      <div className="mx-auto w-full max-w-[1600px] px-3 pb-3 lg:hidden">
+        <SearchBox
+          id="store-search-mobile"
+          className="relative w-full"
+          query={query}
+          searchOpen={searchOpen}
+          hits={hits}
+          recent={recent}
+          onQuery={(text) => {
+            setQuery(text);
+            setSearchPath(pathname);
+          }}
+          onFocus={onSearchFocus}
+          onSubmit={onSearch}
+          onPick={remember}
+        />
       </div>
+      {mobileOpen ? <MobilePanel onPick={remember} /> : null}
     </div>
+  );
+}
+
+function SearchBox({
+  id,
+  className,
+  query,
+  searchOpen,
+  hits,
+  recent,
+  onQuery,
+  onFocus,
+  onSubmit,
+  onPick,
+}: {
+  id: string;
+  className: string;
+  query: string;
+  searchOpen: boolean;
+  hits: readonly SearchHit[];
+  recent: readonly MenuLink[];
+  onQuery: (text: string) => void;
+  onFocus: () => void;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onPick: (item: MenuLink) => void;
+}) {
+  return (
+    <form className={className} role="search" onSubmit={onSubmit}>
+      <label htmlFor={id} className="sr-only">
+        Search items, collections, and posts
+      </label>
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m16 16 4 4" />
+      </svg>
+      <input
+        id={id}
+        role="combobox"
+        value={query}
+        onChange={(event) => {
+          onQuery(event.target.value);
+        }}
+        onFocus={onFocus}
+        placeholder="Search items, collections, and accounts"
+        autoComplete="off"
+        aria-expanded={searchOpen}
+        aria-controls={`${id}-panel`}
+        aria-autocomplete="list"
+        className="h-12 w-full rounded-xl border border-line bg-[#f6f7f8] pr-4 pl-10 text-sm text-foreground placeholder:text-muted outline-none focus:border-button focus:bg-white focus:shadow-[0_0_0_3px_rgba(32,129,226,0.18)]"
+      />
+      {searchOpen ? (
+        <div
+          id={`${id}-panel`}
+          className={`${panelClass} right-0 left-0 max-h-[70vh] overflow-y-auto`}
+        >
+          <SearchPanel query={query} hits={hits} recent={recent} onPick={onPick} />
+        </div>
+      ) : null}
+    </form>
   );
 }

@@ -4,13 +4,13 @@
   --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
   --color-background: #ffffff;
-  --color-foreground: #111111;
-  --color-muted: #4a4a4a;
-  --color-line: #e6e6e6;
-  --color-cyan: #00a8e8;
-  --color-button: #0070a1;
-  --color-button-hover: #00aff7;
-  --color-tip: #0f766e;
+  --color-foreground: #04111d;
+  --color-muted: #707a83;
+  --color-line: #e5e8eb;
+  --color-cyan: #2081e2;
+  --color-button: #2081e2;
+  --color-button-hover: #1868b7;
+  --color-tip: #0d8a4e;
   --color-warn: #b45309;
   --color-rust: #c2410c;
 }
@@ -18,7 +18,7 @@
 html,
 body {
   background: #ffffff;
-  color: #111111;
+  color: #04111d;
 }
 
 body {
@@ -26,105 +26,21 @@ body {
 }
 
 ::selection {
-  background: #00a8e8;
+  background: #2081e2;
   color: #ffffff;
 }
 
-.home-stage-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  background: #0c7eb4 url("/home-bg-poster.jpg") center bottom / cover no-repeat;
-}
-
-.home-stage-bg * {
-  pointer-events: none;
-}
-
-.home-bg-video {
+.os-hero-media {
   position: absolute;
   inset: 0;
   height: 100%;
   width: 100%;
   object-fit: cover;
   object-position: center bottom;
-  animation: home-bg-drift 18s ease-in-out infinite;
-}
-
-.home-banner-lockup {
-  animation: home-banner-float 5.2s ease-in-out infinite;
-  filter:
-    drop-shadow(0 0 10px rgba(190, 255, 70, 0.95))
-    drop-shadow(0 0 28px rgba(110, 220, 40, 0.7));
-}
-
-@keyframes home-banner-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes home-bg-drift {
-  0%,
-  100% {
-    transform: scale(1.04);
-  }
-  50% {
-    transform: scale(1.09) translateY(-1.5%);
-  }
-}
-
-.steam-header {
-  background: #171a21;
-  color: #b8b6b4;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.steam-storebar {
-  background-color: #1b2838;
-  background-image: radial-gradient(
-    90% 180% at 50% -30%,
-    #6fafd4 0%,
-    #2f6f96 34%,
-    #1b2838 72%
-  );
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.45);
-}
-
-.ue58-page-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  background: #07131c url("/ue58-bg.jpg") center center / cover no-repeat;
-}
-
-.ue58-page-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(4, 17, 29, 0.4) 0%,
-    rgba(4, 17, 29, 0.58) 36%,
-    rgba(4, 17, 29, 0.76) 100%
-  );
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-bg-video,
-  .home-banner-lockup {
-    animation: none;
-  }
-
-  .home-bg-video {
+  .os-hero-media {
     display: none;
   }
 }
