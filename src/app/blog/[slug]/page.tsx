@@ -46,7 +46,12 @@ import {
   sections as web3GamingSections,
 } from "@/lib/web3-gaming-reset";
 import {
+  lead as dataDecisionsLead,
+  sections as dataDecisionsSections,
+} from "@/lib/from-data-to-decisions";
+import {
   belugaPost,
+  dataDecisionsPost,
   blockStmSuiPost,
   featuredPost,
   getPost,
@@ -90,6 +95,10 @@ const content = {
   [web3GamingPost.slug]: {
     lead: web3GamingLead,
     sections: web3GamingSections,
+  },
+  [dataDecisionsPost.slug]: {
+    lead: dataDecisionsLead,
+    sections: dataDecisionsSections,
   },
 };
 

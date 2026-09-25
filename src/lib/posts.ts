@@ -8,6 +8,16 @@ export type Post = {
   kicker?: string;
 };
 
+export const dataDecisionsPost: Post = {
+  slug: "from-data-to-decisions",
+  href: "/blog/from-data-to-decisions",
+  title: "From Data to Decisions: How AEC Teams Use Unreal Engine",
+  date: "2026-09-25",
+  dateLabel: "25 September 2026",
+  description:
+    "AEC teams already have the models, the sensors, and the simulations. Unreal Engine is where those fragments become a place a team can walk through and act on: operate a live system, rehearse a scenario, and read design performance in the model.",
+};
+
 export const web3GamingPost: Post = {
   slug: "the-web3-gaming-landscape-reset",
   href: "/blog/the-web3-gaming-landscape-reset",
@@ -123,6 +133,7 @@ export const belugaPost: Post = {
 };
 
 export const posts: Post[] = [
+  dataDecisionsPost,
   web3GamingPost,
   ue58Post,
   modernNftsPost,
