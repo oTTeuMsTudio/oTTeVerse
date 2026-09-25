@@ -15,26 +15,27 @@ const featured = nftListings.slice(0, 8);
 export function HomeHero() {
   return (
     <div className="bg-white">
-      <section className="mx-auto w-full max-w-[1440px] px-4 pt-6 sm:px-6 lg:px-8">
-        <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-line bg-[#04111d] sm:min-h-[420px]">
-          <div
-            className="absolute inset-0 bg-cover bg-bottom"
-            style={{ backgroundImage: "url(/home-bg-poster.jpg)" }}
-            aria-hidden="true"
-          />
-          <video
-            className="os-hero-media"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/home-bg-poster.jpg"
-            preload="auto"
-          >
-            <source src="/home-bg.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#04111d]/80 via-[#04111d]/30 to-transparent" />
-          <div className="relative z-10 flex min-h-[280px] max-w-xl flex-col justify-end p-6 sm:min-h-[420px] sm:p-10">
+      <section className="relative min-h-[420px] overflow-hidden bg-[#04111d] sm:min-h-[560px]">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url(/home-bg-poster.jpg)" }}
+          aria-hidden="true"
+        />
+        <video
+          className="os-hero-media"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/home-bg-poster.jpg"
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="/home-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04111d]/85 via-[#04111d]/45 to-[#04111d]/15" />
+        <div className="relative z-10 mx-auto flex min-h-[420px] w-full max-w-[1440px] flex-col justify-end px-4 py-10 sm:min-h-[560px] sm:px-6 sm:py-14 lg:px-8">
+          <div className="max-w-xl">
             <p className="text-sm font-semibold text-white/80">Featured</p>
             <h1 className="mt-2 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               oTTeVerse

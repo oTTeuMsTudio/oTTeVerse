@@ -24,15 +24,26 @@ export const metadata: Metadata = {
 export default function NftsPage() {
   return (
     <main id="main" className="flex-1 bg-white text-foreground">
-      <div
-        className="h-36 bg-[#04111d] bg-cover bg-center sm:h-52"
-        style={{
-          backgroundImage:
-            "linear-gradient(180deg, rgba(4,17,29,0.15), rgba(4,17,29,0.35)), url(/ue58-bg.jpg)",
-        }}
-        role="img"
-        aria-label="oTTeVerse game world"
-      />
+      <div className="relative h-44 overflow-hidden bg-[#04111d] sm:h-64">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url(/home-bg-poster.jpg)" }}
+          aria-hidden="true"
+        />
+        <video
+          className="os-hero-media"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/home-bg-poster.jpg"
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/home-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#04111d]/15 to-[#04111d]/45" />
+      </div>
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-end gap-4">
           <Image
